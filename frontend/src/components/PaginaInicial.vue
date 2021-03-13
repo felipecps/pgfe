@@ -1,5 +1,5 @@
 <template>
     <div class="container">
-        Olá3
+        Olá
     </div>
 </template>
