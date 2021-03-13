@@ -1,0 +1,7 @@
+# https://docs.netlify.com/routing/redirects/#syntax-for-the-netlify-configuration-file
+# Redirects from what the browser requests to what we serve
+#/home              /
+#/blog/my-post.php  /blog/my-post
+#/news              /blog
+#/cuties            https://www.petsofnetlify.com
+/* /index.html 200
