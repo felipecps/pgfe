@@ -67,7 +67,7 @@ def remove_book(book_id):
 # sanity check route
 @app.route('/ping', methods=['GET'])
 def ping_pong():
-    return jsonify('pong!')
+    return jsonify('pong2!')
 
 @app.route('/hora_atual')
 def hello_world():
