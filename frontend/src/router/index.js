@@ -4,6 +4,7 @@ import Ping from '../components/Ping.vue';
 import PaginaInicial from '../components/PaginaInicial.vue';
 import EmailAlert from '../components/EmailAlert.vue';
 import CalculaCorretagem from '../components/CalculaCorretagem.vue';
+import PythonExercicios from '../components/Python.vue';
 
 Vue.use(VueRouter)
 
@@ -27,7 +28,12 @@ const routes = [
     path: '/calculacorretagem',
     name: 'CalculaCorretagem',
     component: CalculaCorretagem,
-  },
+   },
+   {
+    path: '/python',
+    name: 'PythonExercicios',
+    component: PythonExercicios,
+   }
 ];
 
 const router = new VueRouter({
