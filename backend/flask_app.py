@@ -48,8 +48,18 @@ def hora_atual():
 
 @app.route('/resolve_exercicios', methods=['POST'])
 def resolve_exercicios():
-    exercicio = request.args.get('exercicio', '')
-    resposta = distribuir_exercicios(exercicio)
+    # Status atual.
+    # estou tentando fazer o exemplo 2. quero fazer o programa enviar do front end para o backend o valor digitado sem a
+    # necessidade de apertar um botao
+
+    params = {}
+    nro_do_exercicio = request.args.get('exercicio', '')
+    valor1 = request.args.get('valor1', False)
+
+    params.update({'nro_do_exercicio': nro_do_exercicio})
+    params.update({'valor1': valor1})
+
+    resposta = distribuir_exercicios(params)
     if resposta['status'] == 200:
         return jsonify(resposta)
     else:
