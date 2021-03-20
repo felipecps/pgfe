@@ -48,7 +48,6 @@
 <script>
     import axios from 'axios';
     import A from "@/components/A.vue";
-    import B from "@/components/B.vue";
 
     export default {
         name: 'PythonExercicios',
