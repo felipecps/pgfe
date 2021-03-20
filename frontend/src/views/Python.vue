@@ -35,17 +35,30 @@
             </b-card>
         </div>
 
+        <div class="card mt-3 col-md-12">
+            <A v-if="true"
+               v-show="true"
+               :texto="texto2">
+            </A>
+        </div>
 
     </div>
 </template>
 
 <script>
     import axios from 'axios';
+    import A from "@/components/A.vue";
+    import B from "@/components/B.vue";
 
     export default {
         name: 'PythonExercicios',
+        components: {
+            A,
+            B
+        },
         data() {
             return {
+                texto2: "Oi meu amor",
                 post: true,
                 form: {
                     nro: '' 

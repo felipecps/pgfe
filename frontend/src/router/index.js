@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Ping from '../components/Ping.vue';
-import PaginaInicial from '../components/PaginaInicial.vue';
-import EmailAlert from '../components/EmailAlert.vue';
-import CalculaCorretagem from '../components/CalculaCorretagem.vue';
-import PythonExercicios from '../components/Python.vue';
+import Ping from '../views/Ping.vue';
+import PaginaInicial from '../views/PaginaInicial.vue';
+import EmailAlert from '../views/EmailAlert.vue';
+import CalculaCorretagem from '../views/CalculaCorretagem.vue';
+import PythonExercicios from '../views/Python.vue';
 
 Vue.use(VueRouter)
 
