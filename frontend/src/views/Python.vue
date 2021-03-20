@@ -52,8 +52,7 @@
     export default {
         name: 'PythonExercicios',
         components: {
-            A,
-            B
+            A
         },
         data() {
             return {
