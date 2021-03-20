@@ -3,9 +3,12 @@
         <div>
             <b-card bg-variant="light" text-variant="black">
                 <b-form @submit="onSubmit">
-                    <p class="text-break">
-                        1. Faça um Programa que mostre a mensagem "Alo mundo" na tela.
-                    </p>
+                    
+                    <TextoIntrodutorio
+                       v-show="true"
+                       :texto="texto1">
+                    </TextoIntrodutorio>
+
                     <b-button class="mr-1" @click="submit('1')" variant="primary">Executar</b-button>
                     <b-alert class="mt-3" v-if="resposta01" show>{{ resposta01 }}</b-alert>
                 </b-form>
@@ -15,9 +18,12 @@
         <div class="mt-3">
             <b-card bg-variant="light" text-variant="black">
                 <b-form @submit="onSubmit">
-                    <p class="text-break">
-                        2. Faça um Programa que peça um número e então mostre a mensagem O número informado foi [número].
-                    </p>
+
+                    <TextoIntrodutorio 
+                        v-show="true"
+                        :texto="texto2">
+                    </TextoIntrodutorio>
+
                     <b-button class="mr-1" @click="submit('2')" variant="primary">Executar</b-button>
                     <div class="mt-3" v-if="mostrar_campos_para_entrada_de_dados_ex2">
                         <b-form-group id="input-exercicio-2" label="Informe um número:" label-for="exercicio-2"
@@ -48,15 +54,18 @@
 <script>
     import axios from 'axios';
     import A from "@/components/A.vue";
+    import TextoIntrodutorio from "@/components/TextoIntrodutorio.vue";
 
     export default {
         name: 'PythonExercicios',
         components: {
-            A
+            A,
+            TextoIntrodutorio
         },
         data() {
             return {
-                texto2: "Oi meu amor",
+                texto1: "1. Faça um Programa que mostre a mensagem 'Alo mundo' na tela.",
+                texto2: "2. Faça um Programa que peça um número e então mostre a mensagem O número informado foi [número].",
                 post: true,
                 form: {
                     nro: '' 
