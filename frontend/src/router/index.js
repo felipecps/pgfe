@@ -5,6 +5,7 @@ import PaginaInicial from '../views/PaginaInicial.vue';
 import EmailAlert from '../views/EmailAlert.vue';
 import CalculaCorretagem from '../views/CalculaCorretagem.vue';
 import PythonExercicios from '../views/Python.vue';
+import estruturaSequencial from '../components/EstruturaSequencial.vue';
 
 Vue.use(VueRouter)
 
@@ -33,7 +34,12 @@ const routes = [
     path: '/python',
     name: 'PythonExercicios',
     component: PythonExercicios,
-   }
+   },
+   {
+    path: '/estruturaSequencial',
+    name: 'EstruturaSequencial',
+    component: estruturaSequencial,
+    }
 ];
 
 const router = new VueRouter({
