@@ -36,8 +36,8 @@
         },
         methods: {
             submit(nro_do_exercicio) {
-                const path = 'http://localhost:5000/resolve_exercicios'
-                //const path = 'https://felipecps.pythonanywhere.com/resolve_exercicios'
+                //const path = 'http://localhost:5000/resolve_exercicios'
+                const path = 'https://felipecps.pythonanywhere.com/resolve_exercicios'
                 if (this.post) {
                     axios.post(
                         path,
