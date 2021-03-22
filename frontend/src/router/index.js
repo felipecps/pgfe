@@ -6,6 +6,9 @@ import EmailAlert from '../views/EmailAlert.vue';
 import CalculaCorretagem from '../views/CalculaCorretagem.vue';
 import PythonExercicios from '../views/Python.vue';
 import estruturaSequencial from '../components/EstruturaSequencial.vue';
+import Ex1 from '../components/exerciciosEstruturaSequencial/ex1.vue';
+import Ex2 from '../components/exerciciosEstruturaSequencial/ex2.vue';
+import Ex3 from '../components/exerciciosEstruturaSequencial/ex3.vue';
 
 Vue.use(VueRouter)
 
@@ -36,9 +39,24 @@ const routes = [
     component: PythonExercicios,
    },
    {
-    path: '/estruturaSequencial',
+    path: '/python/estruturaSequencial',
     name: 'EstruturaSequencial',
     component: estruturaSequencial,
+    },
+    {
+        path: '/python/estruturaSequencial/ex1',
+        name: 'Ex1',
+        component: Ex1,
+    },
+    {
+        path: '/python/estruturaSequencial/ex2',
+        name: 'Ex2',
+        component: Ex2,
+    },
+    {
+        path: '/python/estruturaSequencial/ex3',
+        name: 'Ex3',
+        component: Ex3,
     }
 ];
 
