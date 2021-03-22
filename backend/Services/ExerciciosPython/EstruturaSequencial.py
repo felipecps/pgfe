@@ -9,7 +9,7 @@ def exercicio01():
 
 def exercicio02(param):
     valor = param['valor1']
-    resposta = "O número informado foi ", valor
+    resposta = "O número informado foi " + valor
     return {"resposta": resposta, "status": 200}
 
 
