@@ -14,8 +14,8 @@ def exercicio02(param):
 
 
 def exercicio03(param):
-    nro1 = param['valor1']
-    nro2 = param['valor2']
+    nro1 = int(param['valor1'])
+    nro2 = int(param['valor2'])
     soma = nro1 + nro2
     return {"resposta": soma, "status": 200}
 
