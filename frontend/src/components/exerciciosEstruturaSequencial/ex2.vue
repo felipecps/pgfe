@@ -7,7 +7,7 @@
                     <TextoIntrodutorio v-show="true" :texto="texto2"></TextoIntrodutorio>
 
                     <b-button class="mr-1" @click="submit('2')" variant="primary">Executar</b-button>
-                    <b-button type="reset" variant="danger">Limpar</b-button>
+                    <b-button type="reset" variant="danger" :disabled="mostra_resposta == false">Limpar</b-button>
                     
                     <div class="mt-3" v-if="mostrar_campos_para_entrada_de_dados_ex2">
                         <b-form-group id="input-exercicio-2" label="Informe um número:" label-for="exercicio-2"

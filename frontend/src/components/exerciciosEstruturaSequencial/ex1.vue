@@ -5,9 +5,8 @@
                 <b-form @submit="onSubmit" @reset="onReset">
 
                     <TextoIntrodutorio v-show="true" :texto="texto_ex1"></TextoIntrodutorio>
-
                     <b-button class="mr-1" @click="submit('1')" variant="primary">Executar</b-button>
-                    <b-button type="reset" variant="danger">Limpar</b-button>
+                    <b-button type="reset" variant="danger" :disabled="mostra_resposta == false">Limpar</b-button>
 
                     <div v-if="mostra_resposta">
                         <b-alert class="mt-3" show>{{ resposta01 }}</b-alert>
