@@ -2,11 +2,12 @@
     <div class="container">
         <div class="mt-3">
             <b-card bg-variant="light" text-variant="black">
-                <TextoIntrodutorio v-show="true" :texto="texto3"></TextoIntrodutorio>
+                <TextoIntrodutorio v-show="true" :texto="texto3"
+                                   @abc="abc_m"></TextoIntrodutorio>
                 <b-button class="mr-1" @click="submit('3')" variant="primary">Executar</b-button>
 
-                <b-form @submit="onSubmit">
-                    <div class="mt-3" v-if="mostrar_campos_para_entrada_de_dados_ex3">
+                <div class="mt-3" v-if="mostrar_campos_para_entrada_de_dados_ex3">
+                    <b-form @submit="onSubmit" @reset="onReset">
                         <b-form-group id="input-exercicio-3" label="Digite o primeiro número da soma:" label-for="input-1">
                             <b-form-input id="input-1"
                                           autocomplete="off"
@@ -26,9 +27,9 @@
 
                         <b-button class="mr-1" type="submit" variant="primary">Somar</b-button>
                         <b-button type="reset" variant="danger">Limpar</b-button>
-                    </div>
-                    <b-alert class="mt-3" v-if="resposta03" show>A soma dos dois números é: {{ resposta03 }}</b-alert>
-                </b-form>
+                    </b-form>
+                </div>
+                <b-alert class="mt-3" v-if="resposta03" show>A soma dos dois números é: {{ resposta03 }}</b-alert>
             </b-card>
         </div>
     </div>
@@ -48,7 +49,8 @@
                 texto3: "3. Faça um Programa que peça dois números e imprima a soma.",
                 post: true,
                 form: {
-                    nro3: ''
+                    nro1: '',
+                    nro2: ''
                 },
                 mostrar_campos_para_entrada_de_dados_ex3: false,
                 mostra_resposta: false,
@@ -98,12 +100,12 @@
             },
             onReset(event) {
                 event.preventDefault()
-                this.form.nro1 = '',
+                this.form.nro1 = 'Felipe2',
                 this.form.nro2 = ''
+            },
+            abc_m(nome) {
+                this.form.nro1 = nome
             }
-        },
-        created() {
-
-        },
+        }
     };
 </script>
