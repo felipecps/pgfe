@@ -2,9 +2,8 @@
     <div class="container">
         <div class="mt-3">
             <b-card bg-variant="light" text-variant="black">
-                <TextoIntrodutorio v-show="true" :texto="texto3"
-                                   @abc="abc_m"></TextoIntrodutorio>
-                <b-button class="mr-1" @click="submit('3')" variant="primary">Executar</b-button>
+                <TextoIntrodutorio v-show="true" :texto="texto3"></TextoIntrodutorio>
+                <b-button class="mr-1" @click="submit()" variant="primary">Executar</b-button>
 
                 <div class="mt-3" v-if="mostrar_campos_para_entrada_de_dados_ex3">
                     <b-form @submit="onSubmit" @reset="onReset">
@@ -29,7 +28,7 @@
                         <b-button type="reset" variant="danger">Limpar</b-button>
                     </b-form>
                 </div>
-                <b-alert class="mt-3" v-if="resposta03" show>A soma dos dois números é: {{ resposta03 }}</b-alert>
+                <b-alert class="mt-3" v-if="mostra_resposta" show>A soma dos dois números é: {{ resposta03 }}</b-alert>
             </b-card>
         </div>
     </div>
@@ -59,23 +58,16 @@
             };
         },
         methods: {
-            submit(nro_do_exercicio) {
-                if (nro_do_exercicio == '3') {
-                    this.post = true
+            submit() {
                     this.mostrar_campos_para_entrada_de_dados_ex3 = true
-
-                    if (this.form.nro1 == '' || this.form.nro2) {
-                        this.post = false
-                    }
-                }
             },
             onSubmit(event) {
                 event.preventDefault()
-                
+
                 //const path = 'http://localhost:5000/resolve_exercicios'
                 const path = 'https://felipecps.pythonanywhere.com/resolve_exercicios'
 
-                if (this.post) {
+                if (this.form.nro1 != '' && this.form.nro2 != '') {
                     axios.post(
                         path,
                         null,
@@ -100,12 +92,10 @@
             },
             onReset(event) {
                 event.preventDefault()
-                this.form.nro1 = 'Felipe2',
-                this.form.nro2 = ''
-            },
-            abc_m(nome) {
-                this.form.nro1 = nome
-            }
+                this.form.nro1 = '',
+                this.form.nro2 = '',
+                this.mostra_resposta = false
+            }            
         }
     };
 </script>
