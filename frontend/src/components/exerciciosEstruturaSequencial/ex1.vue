@@ -2,14 +2,17 @@
     <div class="container">
         <div>
             <b-card bg-variant="light" text-variant="black">
-                <b-form @submit="onSubmit">
+                <b-form @submit="onSubmit" @reset="onReset">
 
-                    <TextoIntrodutorio v-show="true"
-                                       :texto="texto_ex1">
-                    </TextoIntrodutorio>
+                    <TextoIntrodutorio v-show="true" :texto="texto_ex1"></TextoIntrodutorio>
 
                     <b-button class="mr-1" @click="submit('1')" variant="primary">Executar</b-button>
-                    <b-alert class="mt-3" v-if="resposta01" show>{{ resposta01 }}</b-alert>
+                    <b-button type="reset" variant="danger">Limpar</b-button>
+
+                    <div v-if="mostra_resposta">
+                        <b-alert class="mt-3" show>{{ resposta01 }}</b-alert>
+                    </div>
+
                 </b-form>
             </b-card>
         </div>
@@ -62,7 +65,11 @@
             onSubmit(evt) {
                 evt.preventDefault()
 
-            }
+            },
+            onReset(event) {
+                event.preventDefault()
+                this.mostra_resposta = false
+            }  
         },
         created() {
 
