@@ -9,6 +9,7 @@ import estruturaSequencial from '../components/EstruturaSequencial.vue';
 import Ex1 from '../components/exerciciosEstruturaSequencial/ex1.vue';
 import Ex2 from '../components/exerciciosEstruturaSequencial/ex2.vue';
 import Ex3 from '../components/exerciciosEstruturaSequencial/ex3.vue';
+import Ex4 from '../components/exerciciosEstruturaSequencial/ex4.vue';
 
 Vue.use(VueRouter)
 
@@ -57,6 +58,11 @@ const routes = [
         path: '/python/estruturaSequencial/ex3',
         name: 'Ex3',
         component: Ex3,
+    },
+    {
+        path: '/python/estruturaSequencial/ex4',
+        name: 'Ex4',
+        component: Ex4,
     }
 ];
 

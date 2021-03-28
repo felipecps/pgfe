@@ -21,11 +21,12 @@ def exercicio03(param):
 
 
 def exercicio04(param):
-    nota1 = param['valor1']
-    nota2 = param['valor2']
-    nota3 = param['valor3']
-    nota4 = param['valor4']
+    nota1 = float(str(param['valor1']).replace(',','.'))
+    nota2 = float(str(param['valor2']).replace(',','.'))
+    nota3 = float(str(param['valor3']).replace(',','.'))
+    nota4 = float(str(param['valor4']).replace(',','.'))
     media = (nota1 + nota2 + nota3 + nota4) / 4
+    media = round(media, 2)
     return {"resposta": media, "status": 200}
 
 

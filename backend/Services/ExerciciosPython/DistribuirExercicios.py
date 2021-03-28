@@ -11,7 +11,7 @@ def distribuir_exercicios(params):
     if nro == '3':
         return exercicio03(params)
     if nro == '4':
-        return exercicio04()
+        return exercicio04(params)
     if nro == '5':
         return exercicio05(params)
     if nro == '6':

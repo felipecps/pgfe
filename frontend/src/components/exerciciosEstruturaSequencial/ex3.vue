@@ -27,8 +27,8 @@
                         <b-button class="mr-1" type="submit" variant="primary">Somar</b-button>
                         <b-button type="reset" variant="danger">Limpar</b-button>
                     </b-form>
+                    <b-alert class="mt-3" v-if="mostra_resposta" show>A soma dos dois números é: {{ resposta03 }}</b-alert>
                 </div>
-                <b-alert class="mt-3" v-if="mostra_resposta" show>A soma dos dois números é: {{ resposta03 }}</b-alert>
             </b-card>
         </div>
     </div>
