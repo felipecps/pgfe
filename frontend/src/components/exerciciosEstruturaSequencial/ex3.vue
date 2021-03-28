@@ -3,8 +3,8 @@
         <div class="mt-3">
             <b-card bg-variant="light" text-variant="black">
                 <TextoIntrodutorio v-show="true" :texto="texto3"></TextoIntrodutorio>
-                <b-button class="mr-1" @click="submit()" variant="primary">Executar</b-button>
 
+                <!-- <b-button class="mr-1" @click="submit()" variant="primary">Executar</b-button> -->
                 <div class="mt-3" v-if="mostrar_campos_para_entrada_de_dados_ex3">
                     <b-form @submit="onSubmit" @reset="onReset">
                         <b-form-group id="input-exercicio-3" label="Digite o primeiro número da soma:" label-for="input-1">
@@ -25,7 +25,7 @@
                         </b-form-group>
 
                         <b-button class="mr-1" type="submit" variant="primary">Somar</b-button>
-                        <b-button type="reset" variant="danger">Limpar</b-button>
+                        <b-button type="reset" variant="danger" :disabled="mostra_resposta == false">Limpar</b-button>
                     </b-form>
                     <b-alert class="mt-3" v-if="mostra_resposta" show>A soma dos dois números é: {{ resposta03 }}</b-alert>
                 </div>
@@ -51,7 +51,7 @@
                     nro1: '',
                     nro2: ''
                 },
-                mostrar_campos_para_entrada_de_dados_ex3: false,
+                mostrar_campos_para_entrada_de_dados_ex3: true,
                 mostra_resposta: false,
                 resposta03: "",
                 status: 0
