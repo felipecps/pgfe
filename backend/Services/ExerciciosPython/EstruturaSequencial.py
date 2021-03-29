@@ -1,6 +1,6 @@
 import math
 
-from Services.ExerciciosPython.utils import isFloat
+from Services.ExerciciosPython.utils import isFloat, verificaSeNroTerminaComVirgulaOuPonto
 
 
 def exercicio01():
@@ -11,20 +11,30 @@ def exercicio01():
 
 def exercicio02(param):
     resposta = "O valor informado não é um número"
-    valor = param['valor1']
+    valor_original = param['valor1']
 
-    if str(valor).endswith(',') or str(valor).endswith('.'):
+    if verificaSeNroTerminaComVirgulaOuPonto(valor_original):
         return {"resposta": resposta, "status": 200}
+    valor = str(valor_original).replace(",", ".")
     if valor.isdigit() or isFloat(valor):
-        resposta = "O número informado foi " + valor
+        resposta = "O número informado foi " + str(valor_original)
     return {"resposta": resposta, "status": 200}
 
 
 def exercicio03(param):
-    nro1 = int(param['valor1'])
-    nro2 = int(param['valor2'])
-    soma = nro1 + nro2
-    return {"resposta": soma, "status": 200}
+    soma = "Soma impossível de ser realizada. Verifique se os valores informados são realmente números."
+    nro1 = param['valor1']
+    nro2 = param['valor2']
+
+    if verificaSeNroTerminaComVirgulaOuPonto(nro1) or verificaSeNroTerminaComVirgulaOuPonto(nro2):
+        return {"resposta": soma, "status": 400}
+
+    if (nro1.isdigit() or isFloat(nro1)) and (nro2.isdigit() or isFloat(nro2)):
+        soma = int(param['valor1']) + int(param['valor2'])
+        return {"resposta": soma, "status": 200}
+
+    return {"resposta": soma, "status": 400}
+
 
 
 def exercicio04(param):

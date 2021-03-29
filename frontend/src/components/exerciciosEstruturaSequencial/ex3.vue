@@ -25,9 +25,9 @@
                         </b-form-group>
 
                         <b-button class="mr-1" type="submit" variant="primary">Somar</b-button>
-                        <b-button type="reset" variant="danger" :disabled="mostra_resposta == false">Limpar</b-button>
+                        <b-button type="reset" variant="danger" :disabled="mostra_resposta == false && form.nro1 == '' && form.nro2 == '' ">Limpar</b-button>
                     </b-form>
-                    <b-alert class="mt-3" v-if="mostra_resposta" show>A soma dos dois números é: {{ resposta03 }}</b-alert>
+                    <b-alert class="mt-3" v-if="mostra_resposta" show>{{ intro_resposta }} {{ resposta03 }}</b-alert>
                 </div>
             </b-card>
         </div>
@@ -54,6 +54,7 @@
                 mostrar_campos_para_entrada_de_dados_ex3: true,
                 mostra_resposta: false,
                 resposta03: "",
+                intro_resposta: "",
                 status: 0
             };
         },
@@ -64,8 +65,8 @@
             onSubmit(event) {
                 event.preventDefault()
 
-                //const path = 'http://localhost:5000/resolve_exercicios'
-                const path = 'https://felipecps.pythonanywhere.com/resolve_exercicios'
+                const path = 'http://localhost:5000/resolve_exercicios'
+                //const path = 'https://felipecps.pythonanywhere.com/resolve_exercicios'
 
                 if (this.form.nro1 != '' && this.form.nro2 != '') {
                     axios.post(
@@ -81,9 +82,13 @@
                         .then((res) => {
                             this.resposta03 = res.data.resposta
                             this.status = res.data.status
-                            if (this.status = 200) {
-                                this.mostra_resposta = true
+                            if (this.status == 200) {
+                                this.intro_resposta = "A soma dos dois números é: "
+                            } else {
+                                this.intro_resposta = ""
                             }
+                            this.mostra_resposta = true
+
                         })
                         .catch((error) => {
                             console.error(error);

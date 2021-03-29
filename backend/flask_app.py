@@ -62,7 +62,7 @@ def resolve_exercicios():
     params.update({'valor4': valor4})
 
     resposta = distribuir_exercicios(params)
-    if resposta['status'] == 200:
+    if resposta['status'] == 200 or resposta['status'] == 400:
         return jsonify(resposta)
     else:
         return 'erro'
