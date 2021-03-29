@@ -55,8 +55,8 @@
                 submit(nro_do_exercicio) {
                     this.mostrar_campos_para_entrada_de_dados_ex2 = true
 
-                    //const path = 'http://localhost:5000/resolve_exercicios'
-                    const path = 'https://felipecps.pythonanywhere.com/resolve_exercicios'
+                    const path = 'http://localhost:5000/resolve_exercicios'
+                    //const path = 'https://felipecps.pythonanywhere.com/resolve_exercicios'
 
                     if (this.form.nro2 != '') {
                         axios.post(
