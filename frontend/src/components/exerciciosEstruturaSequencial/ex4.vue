@@ -41,7 +41,7 @@
 
 
                                 <b-button class="mr-1" type="submit" variant="primary">Média</b-button>
-                                <b-button type="reset" variant="danger" :disabled="mostra_resposta == false">Limpar</b-button>
+                                <b-button type="reset" variant="danger" :disabled="mostra_resposta == false && form.nro1 == '' && form.nro2 == '' && form.nro3 == '' && form.nro4 == ''">Limpar</b-button>
                             </b-form>
                             <b-alert class="mt-3" v-if="mostra_resposta" show>A média das notas dos 4 bimestres é: {{ resposta04 }}</b-alert>
                         </div>
