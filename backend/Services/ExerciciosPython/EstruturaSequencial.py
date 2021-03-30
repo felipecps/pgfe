@@ -36,7 +36,6 @@ def exercicio03(param):
     return {"resposta": soma, "status": 400}
 
 
-
 def exercicio04(param):
     nota1 = float(str(param['valor1']).replace(',', '.'))
     nota2 = float(str(param['valor2']).replace(',', '.'))
@@ -48,9 +47,14 @@ def exercicio04(param):
 
 
 def exercicio05(param):
-    centimentros = param['valor1']
-    metros = centimentros / 100
-    return {"resposta": metros, "status": 200}
+    try:
+        metros = float(str(param['valor1']).replace(',', '.'))
+        if isFloat(metros):
+            centimentros = metros * 100
+            return {"resposta": centimentros, "status": 200}
+    except:
+        centimetros = 'Não é um valor válido para conversão'
+        return {"resposta": centimetros, "status": 400}
 
 
 def exercicio06(param):
