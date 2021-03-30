@@ -16,7 +16,7 @@
                         </b-form-group>
 
                         <b-button class="mr-1" type="submit" variant="primary">Converter</b-button>
-                        <b-button type="reset" variant="danger" :disabled="mostra_resposta == false || form.nro1 == ''">Limpar</b-button>
+                        <b-button type="reset" variant="danger" :disabled="(mostra_resposta == false && form.nro1 == '')">Limpar</b-button>
                     </b-form>
                     <b-alert class="mt-3" v-if="mostra_resposta" show>{{ intro_resposta }} {{ resposta05 }}</b-alert>
                 </div>
