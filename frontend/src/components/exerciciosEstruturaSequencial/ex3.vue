@@ -25,7 +25,7 @@
                         </b-form-group>
 
                         <b-button class="mr-1" type="submit" variant="primary">Somar</b-button>
-                        <b-button type="reset" variant="danger" :disabled="mostra_resposta == false && form.nro1 == '' && form.nro2 == '' ">Limpar</b-button>
+                        <b-button type="reset" variant="danger" :disabled="mostra_resposta == false && form.nro1 == '' && form.nro2 == ''">Limpar</b-button>
                     </b-form>
                     <b-alert class="mt-3" v-if="mostra_resposta" show>{{ intro_resposta }} {{ resposta03 }}</b-alert>
                 </div>

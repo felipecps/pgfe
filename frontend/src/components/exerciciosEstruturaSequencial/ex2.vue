@@ -18,7 +18,7 @@
                                           required
                                           @input="submit(2)"></b-form-input>
                         </b-form-group>
-                        <b-button type="reset" variant="danger" :disabled="mostra_resposta == false && form.nro2 == ''">Limpar</b-button>
+                        <b-button type="reset" variant="danger" :disabled="mostra_resposta == false || form.nro2 == ''">Limpar</b-button>
                     </div>
                     <div v-if="mostra_resposta && form.nro2 != ''">
                         <b-alert class="mt-3" show>{{ resposta02 }}</b-alert>
