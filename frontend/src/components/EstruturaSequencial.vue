@@ -15,5 +15,8 @@
         <div>
             <b-link href="/python/estruturaSequencial/ex5">Exercicio 5</b-link>
         </div>
+        <div>
+            <b-link href="/python/estruturaSequencial/ex6">Exercicio 6</b-link>
+        </div>
     </div>
 </template>
