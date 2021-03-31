@@ -58,6 +58,9 @@ def exercicio05(param):
 
 
 def exercicio06(param):
-    raio_do_circulo = param['valor1']
-    area = math.pi * raio_do_circulo * raio_do_circulo
-    return {"resposta": area, "status": 200}
+    try:
+        raio_do_circulo = param['valor1'].replace(',', '.')
+        area = math.pi * float(raio_do_circulo) * float(raio_do_circulo)
+        return {"resposta": round(area, 2), "status": 200}
+    except:
+        return {"resposta": "O valor informado não é valido.", "status": 400}
