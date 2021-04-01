@@ -1,8 +1,12 @@
 ﻿<template>
     <div class="container">
-        <div v-for="link in links">            
-            <b-link :href="link.nro">{{ link.texto }}</b-link>
-        </div>
+        <b-card border-variant="dark" header="Estrutura Sequencial" align="left">
+            <div v-for="link in links">
+                <b-link :href="link.nro">{{ link.texto }}</b-link>
+            </div>
+        </b-card>
+
+        
     </div>
 </template>
 
