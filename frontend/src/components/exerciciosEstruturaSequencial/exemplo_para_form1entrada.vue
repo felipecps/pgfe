@@ -32,7 +32,7 @@
                     FCUE_texto_do_botao_reset:"Limpar",
                     FCUE_mostrar_campos_para_entrada_de_dados: true,
                     FCUE_label_do_exercicio: "Informe um número:",
-                    FCUE_placeholder: "Digite um número",
+                    FCUE_placeholder: "Digite o raio do círculo em metros:",
                     FCUE_numero_do_exercicio: "6",
                     resposta: '',
                     //path: 'http://localhost:5000/resolve_exercicios',
