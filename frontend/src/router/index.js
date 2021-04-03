@@ -12,6 +12,7 @@ import Ex3 from '../components/exerciciosEstruturaSequencial/ex3.vue';
 import Ex4 from '../components/exerciciosEstruturaSequencial/ex4.vue';
 import Ex5 from '../components/exerciciosEstruturaSequencial/ex5.vue';
 import Ex6 from '../components/exerciciosEstruturaSequencial/ex6.vue';
+import exemplo_para_form1entrada from '../components/exerciciosEstruturaSequencial/exemplo_para_form1entrada.vue';
 
 
 Vue.use(VueRouter)
@@ -76,6 +77,12 @@ const routes = [
         path: '/python/estruturaSequencial/ex6',
         name: 'Ex6',
         component: Ex6,
+    }
+    ,
+    {
+        path: '/python/estruturaSequencial/exemplo_para_form1entrada',
+        name: 'exemplo_para_form1entrada',
+        component: exemplo_para_form1entrada,
     }
 ];
 
