@@ -1,23 +1,16 @@
 ﻿<template>
     <div class="container">
-        <b-card border-variant="dark" header="Estrutura Sequencial" align="left">
+        <b-card border-variant="light" header="Estrutura Sequencial" align="left">
             <div v-for="link in links">
                 <b-link :href="link.nro">{{ link.texto }}</b-link>
             </div>
-        </b-card>
-
-        
+        </b-card>        
     </div>
 </template>
 
 
 <script>
-        //import TextoIntrodutorio from "@/components/TextoIntrodutorio.vue";
-
         export default {
-            components: {
-                //TextoIntrodutorio
-            },
             data() {
                 return {
                     links: [
@@ -29,19 +22,6 @@
                         { nro: "/python/estruturaSequencial/ex6", texto: "6. Faça um Programa que peça o raio de um círculo, calcule e mostre sua área." }
                     ]
                 };
-            },
-            methods: {
-                
-                onSubmit(evt) {
-                    evt.preventDefault()
-                },
-                onReset(event) {
-                    event.preventDefault()
-                    
-                }
-            },
-            created() {
-
-            },
+            }
         };
 </script>
