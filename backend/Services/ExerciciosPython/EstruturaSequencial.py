@@ -1,6 +1,7 @@
 import math
 
-from Services.ExerciciosPython.utils import isFloat, verificaSeNroTerminaComVirgulaOuPonto, formatNumber
+from Services.ExerciciosPython.utils import isFloat, verificaSeNroTerminaComVirgulaOuPonto, formatNumber, \
+    real_br_money_mask
 
 
 def exercicio01():
@@ -84,3 +85,15 @@ def exercicio07(param):
     except Exception as error:
         print(error)
         return {"resposta": "O valor informado não é valido.", "status": 400}
+
+
+def exercicio08(param):
+    try:
+        salario = float(param['valor1'].replace(',', '.')) * float(param['valor2'].replace(',', '.'))
+        resposta = "O seu salário mensal é de R$" + str(real_br_money_mask(round(salario,2))) + "."
+        return {"resposta": resposta, "status": 200}
+    except Exception as error:
+        print(error)
+        return {
+            "resposta": "Calculo impossível de ser realizado. Verifique se os valores informados são realmente números.",
+            "status": 400}

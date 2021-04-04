@@ -1,5 +1,5 @@
 from Services.ExerciciosPython.EstruturaSequencial import exercicio01, exercicio02, exercicio03, exercicio04, \
-    exercicio05, exercicio06, exercicio07
+    exercicio05, exercicio06, exercicio07, exercicio08
 
 
 def distribuir_exercicios(params):
@@ -18,3 +18,5 @@ def distribuir_exercicios(params):
         return exercicio06(params)
     if nro == '7':
         return exercicio07(params)
+    if nro == '8':
+        return exercicio08(params)
