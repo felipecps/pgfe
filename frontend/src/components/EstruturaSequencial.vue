@@ -20,6 +20,7 @@
                         { nro: "/python/estruturaSequencial/ex4", texto: "4. Faça um Programa que peça as 4 notas bimestrais e mostre a média." },
                         { nro: "/python/estruturaSequencial/ex5", texto: "5. Faça um Programa que converta metros para centímetros." },
                         { nro: "/python/estruturaSequencial/ex6", texto: "6. Faça um Programa que peça o raio de um círculo, calcule e mostre sua área." },
+                        { nro: "/python/estruturaSequencial/ex7", texto: "7. Faça um Programa que calcule a área de um quadrado, em seguida mostre o dobro desta área para o usuário.." },
                         //{ nro: "/python/estruturaSequencial/exemplo_para_form1entrada?nro=2&entradas=1", texto: "A. Exercicio de teste de funcionalidade." }
                     ]
                 };
