@@ -27,7 +27,7 @@
 
 <script>
     import axios from 'axios';
-    import TextoIntrodutorio from "@/components/TextoIntrodutorio.vue";
+    import TextoIntrodutorio from "@/components/Python/modulos/TextoIntrodutorio.vue";
 
     export default {
         name: 'PythonExercicios',

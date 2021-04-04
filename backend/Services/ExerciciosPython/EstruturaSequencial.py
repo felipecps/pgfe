@@ -71,7 +71,7 @@ def exercicio07(param):
         lado_quadrado = param['valor1'].replace(',', '.')
         area_quadrado = math.pow(float(lado_quadrado), 2)
         area = round(area_quadrado, 2)
-        resposta = "O dobro da áre do quadrado de lado " + lado_quadrado + "m é: " + str(2 * area) + " m²"
+        resposta = "O dobro da áre do quadrado de lado " + lado_quadrado + " metros é: " + str(2 * area) + " m²"
         return {"resposta": resposta, "status": 200}
     except Exception as error:
         print(error)

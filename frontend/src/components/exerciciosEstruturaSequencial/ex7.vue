@@ -18,7 +18,7 @@
                         <b-button class="mr-1" type="submit" variant="primary">Calcular área do Quadrado</b-button>
                         <b-button type="reset" variant="danger" :disabled="(mostra_resposta == false && form.nro1 == '')">Limpar</b-button>
                     </b-form>
-                    <b-alert class="mt-3" v-if="mostra_resposta" show>{{ resp.resposta07 }}</b-alert>
+                    <RespostaAlerta :resposta="resp.resposta07" :mostra_resposta="mostra_resposta"></RespostaAlerta>
                 </div>
             </b-card>
         </div>
@@ -27,11 +27,13 @@
 
 <script>
     import axios from 'axios';
-    import TextoIntrodutorio from "@/components/TextoIntrodutorio.vue";
+    import TextoIntrodutorio from "@/components/Python/modulos/TextoIntrodutorio.vue";
+    import RespostaAlerta from "@/components/Python/modulos/RespostaAlerta.vue";
 
     export default {
         components: {
-            TextoIntrodutorio
+            TextoIntrodutorio,
+            RespostaAlerta
         },
         data() {
             return {
