@@ -16,3 +16,10 @@ def verificaSeValorEhIntOuFloat(valor):
     if valor.isdigit() or isFloat(valor):
         return True
     return False
+
+
+def formatNumber(num):
+  if num % 1 == 0:
+    return int(num)
+  else:
+    return num

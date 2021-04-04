@@ -18,7 +18,7 @@
                         <b-button class="mr-1" type="submit" variant="primary">Converter</b-button>
                         <b-button type="reset" variant="danger" :disabled="(mostra_resposta == false && form.nro1 == '')">Limpar</b-button>
                     </b-form>
-                    <b-alert class="mt-3" v-if="mostra_resposta" show>{{ intro_resposta }} {{ resposta05 }}</b-alert>
+                    <RespostaAlerta :resposta="resp.resposta05" :mostra_resposta="mostra_resposta"></RespostaAlerta>
                 </div>
             </b-card>
         </div>
@@ -28,11 +28,12 @@
 <script>
     import axios from 'axios';
     import TextoIntrodutorio from "@/components/Python/modulos/TextoIntrodutorio.vue";
+    import RespostaAlerta from "@/components/Python/modulos/RespostaAlerta.vue";
 
     export default {
-        name: 'PythonExercicios',
         components: {
-            TextoIntrodutorio
+            TextoIntrodutorio,
+            RespostaAlerta
         },
         data() {
             return {
@@ -41,20 +42,18 @@
                 form: {
                     nro1: ''                    
                 },
+                resp: {
+                    resposta05: "",
+                    status: 0
+                },  
                 mostrar_campos_para_entrada_de_dados_ex5: true,
                 mostra_resposta: false,
-                resposta05: "",
                 intro_resposta: "",
-                status: 0
             };
         },
         methods: {
-            submit() {
-                    this.mostrar_campos_para_entrada_de_dados_ex5 = true
-            },
             onSubmit(event) {
                 event.preventDefault()
-
                 //const path = 'http://localhost:5000/resolve_exercicios'
                 const path = 'https://felipecps.pythonanywhere.com/resolve_exercicios'
 
@@ -69,13 +68,8 @@
                             }
                         })
                         .then((res) => {
-                            this.resposta05 = res.data.resposta
-                            this.status = res.data.status
-                            if (this.status == 200) {
-                                this.intro_resposta = "O valor informado, convertido para centimetros é: "
-                            } else {
-                                this.intro_resposta = ""
-                            }
+                            this.resp.resposta05 = res.data.resposta
+                            this.resp.status = res.data.status
                             this.mostra_resposta = true
 
                         })
