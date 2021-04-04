@@ -1,20 +1,21 @@
 ﻿<template>
     <div class="container">
         <b-card bg-variant="light" text-variant="black">
-            <FormularioComUmaEntrada v-show="true"
-                                        :texto_introdutorio="FCUE_texto_introdutorio"
-                                        :texto_do_botao_submit="FCUE_texto_do_botao_submit"
-                                        :texto_do_botao_reset="FCUE_texto_do_botao_reset"
-                                        :mostrar_campos_para_entrada_de_dados="FCUE_mostrar_campos_para_entrada_de_dados"
-                                        :label_do_exercicio="FCUE_label_do_exercicio"
-                                        :placeholder="FCUE_placeholder"
-                                        :numero_do_exercicio="FCUE_numero_do_exercicio"
-                                        >
-                                        <!--
-                                            @abc="abc_m"
-                                            @limpar="limpar"
-                                        -->
-            </FormularioComUmaEntrada>
+            <div v-if="nro_de_entradas==1">
+                <FormularioComUmaEntrada v-show="true"
+                                         :texto_introdutorio="FCUE_texto_introdutorio"
+                                         :texto_do_botao_submit="FCUE_texto_do_botao_submit"
+                                         :texto_do_botao_reset="FCUE_texto_do_botao_reset"
+                                         :mostrar_campos_para_entrada_de_dados="FCUE_mostrar_campos_para_entrada_de_dados"
+                                         :label_do_exercicio="FCUE_label_do_exercicio"
+                                         :placeholder="FCUE_placeholder"
+                                         :numero_do_exercicio="FCUE_numero_do_exercicio">
+<!--
+@abc="abc_m"
+@limpar="limpar">
+-->
+                </FormularioComUmaEntrada>     
+            </div>
         </b-card>
     </div>
 </template>
@@ -33,7 +34,8 @@
                     FCUE_mostrar_campos_para_entrada_de_dados: true,
                     FCUE_label_do_exercicio: "Digite o raio do círculo em metros:",
                     FCUE_placeholder: "Digite um número",
-                    FCUE_numero_do_exercicio: "6",
+                    FCUE_numero_do_exercicio: this.$route.query.nro,
+                    nro_de_entradas: this.$route.query.entradas,
                     resposta: '',
                     //path: 'http://localhost:5000/resolve_exercicios',
                     path: 'https://felipecps.pythonanywhere.com/resolve_exercicios'

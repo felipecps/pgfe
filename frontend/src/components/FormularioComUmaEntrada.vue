@@ -52,7 +52,7 @@
                 console.log('OnSubmited')
                 const path = 'http://localhost:5000/resolve_exercicios'
                 //const path = 'https://felipecps.pythonanywhere.com/resolve_exercicios'
-
+                console.log(this.numero_do_exercicio)
                 if (this.form.nro1 != '') {
                     axios.post(
                         path,

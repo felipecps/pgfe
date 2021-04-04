@@ -77,8 +77,7 @@ const routes = [
         path: '/python/estruturaSequencial/ex6',
         name: 'Ex6',
         component: Ex6,
-    }
-    ,
+    },
     {
         path: '/python/estruturaSequencial/exemplo_para_form1entrada',
         name: 'exemplo_para_form1entrada',
