@@ -2,13 +2,11 @@
     <div class="container">
         <div class="mt-3">
             <b-card bg-variant="light" text-variant="black">
-                <b-form @submit="onSubmit" @reset="onReset">
+                <TextoIntrodutorio v-show="true" :texto="texto2"></TextoIntrodutorio>
 
-                    <TextoIntrodutorio v-show="true" :texto="texto2"></TextoIntrodutorio>
-
-                    <!-- <b-button class="mr-1" @click="submit('2')" variant="primary">Executar</b-button> -->
-
-                    <div class="mt-3">
+                <!-- <b-button class="mr-1" @click="submit('2')" variant="primary">Executar</b-button> -->
+                <div class="mt-3">
+                    <b-form @submit="onSubmit" @reset="onReset">
                         <b-form-group id="input-exercicio-2" label="Informe um número:" label-for="exercicio-2"
                                       description="O número será enviado para o servidor python e na sequência devolvido em uma sentença abaixo.">
                             <b-form-input id="exercicio-2"
@@ -19,10 +17,11 @@
                                           @input="submit(2)"></b-form-input>
                         </b-form-group>
                         <b-button type="reset" variant="danger" :disabled="mostra_resposta == false || form.nro2 == ''">Limpar</b-button>
-                    </div>
-                    <RespostaAlerta :resposta="resp.resposta02" :mostra_resposta="mostra_resposta && form.nro2 != ''"></RespostaAlerta>
-                </b-form>
-                </b-card>
+                        <RespostaAlerta :resposta="resp.resposta02" :mostra_resposta="mostra_resposta && form.nro2 != ''"></RespostaAlerta>
+                    </b-form>
+                </div>
+                
+            </b-card>
             </div>
         </div>
     </template>

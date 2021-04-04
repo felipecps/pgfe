@@ -5,7 +5,7 @@
                 <TextoIntrodutorio v-show="true" :texto="texto5"></TextoIntrodutorio>
 
                 <!-- <b-button class="mr-1" @click="submit()" variant="primary">Executar</b-button> -->
-                <div class="mt-3" v-if="mostrar_campos_para_entrada_de_dados_ex5">
+                <div class="mt-3">
                     <b-form @submit="onSubmit" @reset="onReset">
                         <b-form-group id="input-exercicio-5" label="Digite o valor em metros:" label-for="input-1">
                             <b-form-input id="input-1"
@@ -46,9 +46,7 @@
                     resposta05: "",
                     status: 0
                 },  
-                mostrar_campos_para_entrada_de_dados_ex5: true,
-                mostra_resposta: false,
-                intro_resposta: "",
+                mostra_resposta: false
             };
         },
         methods: {

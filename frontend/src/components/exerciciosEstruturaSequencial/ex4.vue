@@ -3,8 +3,8 @@
         <div>
             <b-card bg-variant="light" text-variant="black">
                 <TextoIntrodutorio v-show="true" :texto="texto_ex4"></TextoIntrodutorio>
-                <!-- <b-button class="mr-1" @click="submit()" variant="primary">Executar</b-button> -->
 
+                <!-- <b-button class="mr-1" @click="submit()" variant="primary">Executar</b-button> -->
                 <div class="mt-3">
                     <b-form @submit="onSubmit" @reset="onReset">
                         <b-form-group id="input-exercicio-4.1" label="Digite a primeira nota:" label-for="input-1">
@@ -44,7 +44,7 @@
                     </b-form>
                     <RespostaAlerta :resposta="resp.resposta04" :mostra_resposta="mostra_resposta"></RespostaAlerta>
                 </div>
-                </b-card>
+            </b-card>
             </div>
         </div>
     </template>
