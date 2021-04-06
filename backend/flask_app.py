@@ -10,6 +10,8 @@ from Services.ExerciciosPython.DistribuirExercicios import distribuir_exercicios
 from Services.SendEmail.sendEmail import send_email
 
 # configuration
+from Services.Telegram.secondsimplebot import startBot
+
 DEBUG = True
 
 # instantiate the app
@@ -71,6 +73,7 @@ def resolve_exercicios():
 try:
     computerName = os.environ['COMPUTERNAME']
     if __name__ == "__main__" and computerName == 'DESKTOP-EDKQLLT':
+        startBot()
         app.run()
 except KeyError:
     pass
