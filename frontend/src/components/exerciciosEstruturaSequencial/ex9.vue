@@ -2,32 +2,23 @@
     <div class="container">
         <div class="mt-3">
             <b-card bg-variant="light" text-variant="black">
-                <TextoIntrodutorio v-show="true" :texto="texto8"></TextoIntrodutorio>
+                <TextoIntrodutorio v-show="true" :texto="texto9"></TextoIntrodutorio>
 
                 <!-- <b-button class="mr-1" @click="submit()" variant="primary">Executar</b-button> -->
                 <div class="mt-3">
                     <b-form @submit="onSubmit" @reset="onReset">
-                        <b-form-group id="input-exercicio-8" label="Qual é o seu salário por hora?" label-for="input-1">
+                        <b-form-group id="input-exercicio-9" label="Qual é a temperatura em Fahrenheit?" label-for="input-1">
                             <b-form-input id="input-1"
                                           autocomplete="off"
                                           v-model="form.nro1"
-                                          placeholder="R$"
+                                          placeholder="F"
                                           required></b-form-input>
                         </b-form-group>
 
-                        <b-form-group id="input-group-2" label="Quantas horas por mês você trabalha?" label-for="input-2"
-                                      description="">
-                            <b-form-input id="input-2"
-                                          autocomplete="off"
-                                          v-model="form.nro2"
-                                          placeholder="Horas por mês"
-                                          required></b-form-input>
-                        </b-form-group>
-
-                        <b-button class="mr-1" type="submit" variant="primary">Calcular</b-button>
-                        <b-button type="reset" variant="danger" :disabled="mostra_resposta == false && form.nro1 == '' && form.nro2 == ''">Limpar</b-button>
+                        <b-button class="mr-1" type="submit" variant="primary">Converter para Celsius</b-button>
+                        <b-button type="reset" variant="danger" :disabled="mostra_resposta == false && form.nro1 == ''">Limpar</b-button>
                     </b-form>
-                    <RespostaAlerta :resposta="resp.resposta08" :mostra_resposta="mostra_resposta"></RespostaAlerta>
+                    <RespostaAlerta :resposta="resp.resposta09" :mostra_resposta="mostra_resposta"></RespostaAlerta>
                 </div>
             </b-card>
         </div>
@@ -46,13 +37,12 @@
         },
         data() {
             return {
-                texto8: "8. Faça um Programa que pergunte quanto você ganha por hora e o número de horas trabalhadas no mês. Calcule e mostre o total do seu salário no referido mês.",
+                texto9: "Faça um Programa que peça a temperatura em graus Fahrenheit, transforme e mostre a temperatura em graus Celsius. C = 5 * ((F - 32) / 9).",
                 form: {
-                    nro1: '',
-                    nro2: ''
+                    nro1: ''
                 },
                 resp: {
-                    resposta08: "",
+                    resposta09: "",
                     status: 0
                 },     
                 mostra_resposta: false
@@ -61,22 +51,21 @@
         methods: {
             onSubmit(event) {
                 event.preventDefault()
-                //const path = 'http://localhost:5000/resolve_exercicios'
-                const path = 'https://felipecps.pythonanywhere.com/resolve_exercicios'
+                const path = 'http://localhost:5000/resolve_exercicios'
+                //const path = 'https://felipecps.pythonanywhere.com/resolve_exercicios'
 
-                if (this.form.nro1 != '' && this.form.nro2 != '') {
+                if (this.form.nro1 != '') {
                     axios.post(
                         path,
                         null,
                         {
                             params: {
-                                exercicio: 8,
-                                valor1: this.form.nro1,
-                                valor2: this.form.nro2
+                                exercicio: 9,
+                                valor1: this.form.nro1
                             }
                         })
                         .then((res) => {
-                            this.resp.resposta08 = res.data.resposta
+                            this.resp.resposta09 = res.data.resposta
                             this.resp.status = res.data.status
                             this.mostra_resposta = true
 
@@ -89,7 +78,6 @@
             onReset(event) {
                 event.preventDefault()
                 this.form.nro1 = '',
-                this.form.nro2 = '',
                 this.mostra_resposta = false
             }            
         }

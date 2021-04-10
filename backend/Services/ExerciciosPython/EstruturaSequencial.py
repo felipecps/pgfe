@@ -106,8 +106,8 @@ def exercicio09(param):
     try:
         temperaturaFH = le_parametro_float(param)
         temperaturaCelsius = 5 * ((temperaturaFH - 32) / 9)
-        celsius = "A temperatura de " + str(temperaturaFH) + "ºF convertida para graus Celsius é de " + str(
-            (round(temperaturaCelsius, 2))) + "."
+        celsius = "A temperatura de " + str(temperaturaFH) + " ºF convertida para graus Celsius é de " + str(
+            (round(temperaturaCelsius, 2))) + " ºC."
         return {"resposta": celsius, "status": 200}
     except Exception as error:
         print(error)
