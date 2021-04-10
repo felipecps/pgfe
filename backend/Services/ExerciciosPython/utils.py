@@ -29,3 +29,6 @@ def real_br_money_mask(my_value):
     b = a.replace(',', 'v')
     c = b.replace('.', ',')
     return c.replace('v', '.')
+
+def le_parametro_float(param):
+    return float(param['valor1'].replace(',', '.'))
