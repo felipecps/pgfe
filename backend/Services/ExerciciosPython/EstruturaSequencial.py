@@ -82,7 +82,7 @@ def exercicio07(param):
             raise Exception
         area_quadrado = math.pow(float(lado_quadrado), 2)
         area = round(area_quadrado, 2)
-        resposta = "O dobro da áre do quadrado de lado " + lado_quadrado + " metros é: " + str(2 * area) + " m²"
+        resposta = "O dobro da área do quadrado de lado " + lado_quadrado + " metros é: " + str(2 * area) + " m²"
         return {"resposta": resposta, "status": 200}
     except Exception as error:
         print(error)
@@ -120,9 +120,11 @@ def exercicio10(param):
     # (C × 9/5) + 32 = 33,8 °F
     try:
         temperaturaCelsius = le_parametro_float(param)
-        temperaturaFH = (temperaturaCelsius * (9 / 5)) + 32
-        fare = "A temperatura de " + str(temperaturaCelsius) + "ºC convertida para Fahrenheit é de " + str(
-            (round(temperaturaFH, 2))) + "."
+        temperaturaFH = round(((temperaturaCelsius * (9 / 5)) + 32), 2)
+        if (temperaturaFH == -0.0):
+            temperaturaFH = 0.0
+
+        fare = "A temperatura de " + str(temperaturaCelsius) + " ºC convertida para Fahrenheit é de " + str(temperaturaFH) + " ºF."
         return {"resposta": fare, "status": 200}
     except Exception as error:
         print(error)

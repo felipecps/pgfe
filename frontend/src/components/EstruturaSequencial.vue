@@ -23,6 +23,7 @@
                         { nro: "/python/estruturaSequencial/ex7", texto: "7. Faça um Programa que calcule a área de um quadrado, em seguida mostre o dobro desta área para o usuário." },
                         { nro: "/python/estruturaSequencial/ex8", texto: "8. Faça um Programa que pergunte quanto você ganha por hora e o número de horas trabalhadas no mês. Calcule e mostre o total do seu salário no referido mês." },
                         { nro: "/python/estruturaSequencial/ex9", texto: "9. Faça um Programa que peça a temperatura em graus Fahrenheit, transforme e mostre a temperatura em graus Celsius.C = 5 * ((F - 32) / 9)." },
+                        { nro: "/python/estruturaSequencial/ex10", texto: "10. Faça um Programa que peça a temperatura em graus Celsius, transforme e mostre em graus Fahrenheit." },
                         //{ nro: "/python/estruturaSequencial/exemplo_para_form1entrada?nro=2&entradas=1", texto: "A. Exercicio de teste de funcionalidade." }
                     ]
                 };
