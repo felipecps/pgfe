@@ -139,16 +139,22 @@ def exercicio11(param):
         int2 = int(param['valor2'].replace(',', '.'))
         real = float(param['valor3'].replace(',', '.'))
 
-        calc1 = 2 * int1 + (int2 / 2)
-        calc2 = 3 * int1 + (int2)
-        calc3 = math.pow(real, 3)
+        if isinstance(int1, int) and isinstance(int2, int) and isinstance(real, float):
+            calc1 = 2 * int1 * (int2 / 2)
+            calc2 = 3 * int1 + (real)
+            calc3 = math.pow(real, 3)
 
-        resposta = "calculo 1: " + str(calc1) + "\n calculo 2: " + str(calc2) + "\n calculo 3: " + str(calc3)
-        return {"resposta": resposta,
-                calc1: str(calc1),
-                calc2: str(calc2),
-                calc3: str(calc3),
-                "status": 200}
+            resposta = "calculo 1: " + str(calc1) + "\n calculo 2: " + str(calc2) + "\n calculo 3: " + str(calc3)
+            return {"resposta": resposta,
+                    "calc1": str(calc1),
+                    "calc2": str(calc2),
+                    "calc3": str(calc3),
+                    "status": 200}
+        else:
+            return {
+                "resposta": "Verifique se os valores informados são números inteiros e real.",
+                "status": 400}
+
 
     except Exception as error:
         print(error)
