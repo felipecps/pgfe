@@ -28,6 +28,10 @@
                             nro: "/python/estruturaSequencial/ex11",
                             texto: "11. Faça um Programa que peça 2 números inteiros e um número real. Calcule e mostre: a) o produto do dobro do primeiro com metade do segundo. b) a soma do triplo do primeiro com o terceiro. c) o terceiro elevado ao cubo."
                         },
+                        {
+                            nro: "/python/estruturaSequencial/ex12",
+                            texto: "12. Tendo como dados de entrada a altura de uma pessoa, construa um algoritmo que calcule seu peso ideal, usando a seguinte fórmula: (72.7*altura) - 58."
+                        },
                         //{ nro: "/python/estruturaSequencial/exemplo_para_form1entrada?nro=2&entradas=1", texto: "A. Exercicio de teste de funcionalidade." }
                     ]
                 };

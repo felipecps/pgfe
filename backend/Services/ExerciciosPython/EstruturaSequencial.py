@@ -168,13 +168,13 @@ def exercicio12(param):
     try:
         altura = le_parametro_float(param)
         pesoIdeal = (72.7 * altura) - 58
-        peso = "O peso ideal para uma pessoa com altura de " + str(round(altura / 100, 2)) + "m é de " + str(
+        peso = "O peso ideal para uma pessoa com altura de " + str(round(altura, 2)) + " m é de " + str(
             round(pesoIdeal, 2)) + "Kg."
         return {"resposta": peso, "status": 200}
     except Exception as error:
         print(error)
         return {
-            "resposta": "Conversão impossível de ser realizada. Verifique se os valores informados são realmente números.",
+            "resposta": "Cálculo impossível de ser realizado. Verifique se os valores informados são realmente números.",
             "status": 400}
 
 
