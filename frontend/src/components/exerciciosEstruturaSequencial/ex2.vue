@@ -30,6 +30,7 @@
         import axios from 'axios';
         import TextoIntrodutorio from "@/components/Python/modulos/TextoIntrodutorio.vue";
         import RespostaAlerta from "@/components/Python/modulos/RespostaAlerta.vue";
+        const valores = require('@/components/exerciciosEstruturaSequencial/utils/valores.js');
 
         export default {
             components: {
@@ -52,12 +53,9 @@
             },
             methods: {
                 submit(nro_do_exercicio) {
-                    //const path = 'http://localhost:5000/resolve_exercicios'
-                    const path = 'https://felipecps.pythonanywhere.com/resolve_exercicios'
-
                     if (this.form.nro2 != '') {
                         axios.post(
-                            path,
+                            valores.path,
                             null,
                             {
                                 params: {
