@@ -183,10 +183,10 @@ def exercicio13(param):
         h = le_parametro_float(param)
         pesoIdealH = (72.7 * h) - 58
         pesoIdealM = (62.1 * h) - 44.7
-        pesoH = "O peso ideal para um homem com altura de " + str(round(h / 100, 2)) + "m é de " + str(
-            round(pesoIdealH, 2)) + "Kg."
-        pesoM = "O peso ideal para uma mulher com altura de " + str(round(h / 100, 2)) + "m é de " + str(
-            round(pesoIdealM, 2)) + "Kg."
+        pesoH = "O peso ideal para um homem com altura de " + str(round(h, 2)) + " m é de " + str(
+            round(pesoIdealH, 2)) + " Kg."
+        pesoM = "O peso ideal para uma mulher com altura de " + str(round(h, 2)) + " m é de " + str(
+            round(pesoIdealM, 2)) + " Kg."
         return {"resposta": "",
                 "pesoH": pesoH,
                 "pesoM": pesoM,
@@ -194,7 +194,8 @@ def exercicio13(param):
     except Exception as error:
         print(error)
         return {
-            "resposta": "Conversão impossível de ser realizada. Verifique se os valores informados são realmente números.",
+            "resposta": "Cálculo impossível de ser realizado. "
+                        "Verifique se os valores informados são realmente números.",
             "status": 400}
 
 

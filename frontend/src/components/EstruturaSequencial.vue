@@ -32,6 +32,10 @@
                             nro: "/python/estruturaSequencial/ex12",
                             texto: "12. Tendo como dados de entrada a altura de uma pessoa, construa um algoritmo que calcule seu peso ideal, usando a seguinte fórmula: (72.7*altura) - 58."
                         },
+                        {
+                            nro: "/python/estruturaSequencial/ex13",
+                            texto: "13. Tendo como dado de entrada a altura (h) de uma pessoa, construa um algoritmo que calcule seu peso ideal, utilizando as seguintes fórmulas: a) Para homens: (72.7*h) - 58 b) Para mulheres: (62.1*h) - 44.7"
+                        },
                         //{ nro: "/python/estruturaSequencial/exemplo_para_form1entrada?nro=2&entradas=1", texto: "A. Exercicio de teste de funcionalidade." }
                     ]
                 };
