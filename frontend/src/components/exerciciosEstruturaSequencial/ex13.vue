@@ -23,6 +23,7 @@
                             <p>
                                 {{ resp.resp_h}}
                             </p>
+                            <hr>
                             <p>
                                 {{ resp.resp_m}}
                             </p>

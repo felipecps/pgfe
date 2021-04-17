@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import Ping from '../views/Ping.vue';
 import PaginaInicial from '../views/PaginaInicial.vue';
 import EmailAlert from '../views/EmailAlert.vue';
@@ -23,6 +24,8 @@ import exemplo_para_form1entrada from '../components/exerciciosEstruturaSequenci
 
 
 Vue.use(VueRouter)
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 
 const routes = [
   {
