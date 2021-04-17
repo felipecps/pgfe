@@ -52,12 +52,12 @@
                 mostra_resposta: false,
                 itens_breadcumb: [
                     {
-                        text: 'Home',
-                        href: '/python'
+                        text: valores.home_text,
+                        href: valores.home_path
                     },
                     {
-                        text: 'EstruturaSequencial',
-                        href: '/python/estruturaSequencial'
+                        text: valores.estruturaSequencial_text,
+                        href: valores.estruturaSequencial_path
                     },
                     {
                         text: 'Exercício 14',

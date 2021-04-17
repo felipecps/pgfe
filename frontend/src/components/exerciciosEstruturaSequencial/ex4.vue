@@ -1,6 +1,7 @@
 ﻿<template>
     <div class="container">
-        <div>
+        <div class="mt-3">
+            <Breadcumb :items="itens_breadcumb"></Breadcumb>
             <b-card bg-variant="light" text-variant="black">
                 <TextoIntrodutorio v-show="true" :texto="texto_ex4"></TextoIntrodutorio>
 
@@ -45,12 +46,13 @@
                     <RespostaAlerta :resposta="resp.resposta04" :mostra_resposta="mostra_resposta"></RespostaAlerta>
                 </div>
             </b-card>
-            </div>
+        </div>
         </div>
     </template>
 
     <script>
         import axios from 'axios';
+        import Breadcumb from "@/components/Python/modulos/Breadcumb.vue";
         import TextoIntrodutorio from "@/components/Python/modulos/TextoIntrodutorio.vue";
         import RespostaAlerta from "@/components/Python/modulos/RespostaAlerta.vue";
         const valores = require('@/components/exerciciosEstruturaSequencial/utils/valores.js');
@@ -58,7 +60,8 @@
         export default {
             components: {
                 TextoIntrodutorio,
-                RespostaAlerta
+                RespostaAlerta,
+                Breadcumb
             },
             data() {
                 return {
@@ -74,7 +77,21 @@
                         resposta04: "",
                         status: 0
                     },
-                    mostra_resposta: false
+                    mostra_resposta: false,
+                    itens_breadcumb: [
+                        {
+                            text: valores.home_text,
+                            href: valores.home_path
+                        },
+                        {
+                            text: valores.estruturaSequencial_text,
+                            href: valores.estruturaSequencial_path
+                        },
+                        {
+                            text: 'Exercício 4',
+                            active: true
+                        }
+                    ]
                 };
             },
             methods: {

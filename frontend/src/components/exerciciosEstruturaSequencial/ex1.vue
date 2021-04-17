@@ -1,12 +1,13 @@
 ﻿<template>
     <div class="container">
-        <div>
+        <div class="mt-3">
+            <Breadcumb :items="itens_breadcumb"></Breadcumb>
             <b-card bg-variant="light" border-variant="light" text-variant="black"
                     style="box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12) !important">
                 <TextoIntrodutorio v-show="true" :texto="texto_ex1"></TextoIntrodutorio>
 
                 <b-form @submit="onSubmit" @reset="onReset">
-                    <b-button class="mr-1"type="submit" variant="primary">Executar</b-button>
+                    <b-button class="mr-1" type="submit" variant="primary">Executar</b-button>
                     <b-button type="reset" variant="danger" :disabled="mostra_resposta == false">Limpar</b-button>
                 </b-form>
 
@@ -18,6 +19,7 @@
 
 <script>
     import axios from 'axios';
+    import Breadcumb from "@/components/Python/modulos/Breadcumb.vue";
     import TextoIntrodutorio from "@/components/Python/modulos/TextoIntrodutorio.vue";
     import RespostaAlerta from "@/components/Python/modulos/RespostaAlerta.vue";
     const valores = require('@/components/exerciciosEstruturaSequencial/utils/valores.js');
@@ -25,7 +27,8 @@
     export default {
         components: {
             TextoIntrodutorio,
-            RespostaAlerta
+            RespostaAlerta,
+            Breadcumb
         },
         data() {
             return {
@@ -36,6 +39,20 @@
                 }, 
                 post: true,
                 mostra_resposta: false,
+                itens_breadcumb: [
+                    {
+                        text: valores.home_text,
+                        href: valores.home_path
+                    },
+                    {
+                        text: valores.estruturaSequencial_text,
+                        href: valores.estruturaSequencial_path
+                    },
+                    {
+                        text: 'Exercício 1',
+                        active: true
+                    }
+                ]
             };
         },
         methods: {
