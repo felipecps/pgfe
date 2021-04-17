@@ -203,15 +203,15 @@ def exercicio14(param):
     resposta = "Não houve excesso no peso de peixe pescado e portanto não há multa a pagar."
     try:
         peso = le_parametro_float(param)
-        excesso = 50 - peso
+        excesso = -50 + peso
         if (excesso > 0):
             multa = 4 * excesso
-            resposta = "O excesso foi de " + str(round(excesso, 2)) + "Kg e a multa é de R$" + real_br_money_mask(multa)
+            resposta = "O excesso foi de " + str(round(excesso, 2)) + " Kg e a multa a pagar é de R$ " + real_br_money_mask(multa)
         return {"resposta": resposta, "status": 200}
     except Exception as error:
         print(error)
         return {
-            "resposta": "Calculo impossível de ser realizado. Verifique se o valor informado é realmente número.",
+            "resposta": "Calculo impossível de ser realizado. Verifique se o valor informado é valido.",
             "status": 400}
 
 

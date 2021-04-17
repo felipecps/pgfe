@@ -36,6 +36,10 @@
                             nro: "/python/estruturaSequencial/ex13",
                             texto: "13. Tendo como dado de entrada a altura (h) de uma pessoa, construa um algoritmo que calcule seu peso ideal, utilizando as seguintes fórmulas: a) Para homens: (72.7*h) - 58 b) Para mulheres: (62.1*h) - 44.7"
                         },
+                        {
+                            nro: "/python/estruturaSequencial/ex14",
+                            texto: "14. João Papo - de - Pescador, homem de bem, comprou um microcomputador para controlar o rendimento diário de seu trabalho.Toda vez que ele traz um peso de peixes maior que o estabelecido pelo regulamento de pesca do estado de São Paulo(50 quilos) deve pagar uma multa de R$ 4, 00 por quilo excedente.João precisa que você faça um programa que leia a variável peso(peso de peixes) e calcule o excesso.Gravar na variável excesso a quantidade de quilos além do limite e na variável multa o valor da multa que João deverá pagar.Imprima os dados do programa com as mensagens adequadas."
+                        },
                         //{ nro: "/python/estruturaSequencial/exemplo_para_form1entrada?nro=2&entradas=1", texto: "A. Exercicio de teste de funcionalidade." }
                     ]
                 };
