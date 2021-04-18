@@ -2,7 +2,7 @@
     <div class="container">
         <div class="mb-5">
             <div class="list-group" v-for="link in links">
-                <a :href="link.nro" class="list-group-item list-group-item-action flex-column align-items-start mt-3">
+                <a :href="link.nro" class="list-group-item list-group-item-action flex-column align-items-start mt-4 shadow-sm p-3 bg-light rounded">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{ link.titulo }}</h5>
                     </div>
@@ -94,6 +94,11 @@
                             texto: "15. Faça um Programa que pergunte quanto você ganha por hora e o número de horas trabalhadas no mês. Calcule e mostre o total do seu salário no referido mês, sabendo-se que são descontados 11% para o Imposto de Renda, 8% para o INSS e 5% para o sindicato, faça um programa que nos dê: a) salário bruto. b) quanto pagou ao INSS. c) quanto pagou ao sindicato. d) o salário líquido. e) calcule os descontos e o salário líquido",
                             titulo: "Exercício 15"
                         },
+                        {
+                            nro: "/python/estruturaSequencial/ex16",
+                            texto: "16. Faça um programa para uma loja de tintas. O programa deverá pedir o tamanho em metros quadrados da área a ser pintada. Considere que a cobertura da tinta é de 1 litro para cada 3 metros quadrados e que a tinta é vendida em latas de 18 litros, que custam R$ 80,00. Informe ao usuário a quantidades de latas de tinta a serem compradas e o preço total.",
+                            titulo: "Exercício 16"
+                        }
                         //{ nro: "/python/estruturaSequencial/exemplo_para_form1entrada?nro=2&entradas=1", texto: "A. Exercicio de teste de funcionalidade." }
                     ]
                 };

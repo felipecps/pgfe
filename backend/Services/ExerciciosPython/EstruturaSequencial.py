@@ -260,7 +260,7 @@ def exercicio16(param):
         total_de_latas = math.ceil(tamanho_da_area_a_ser_pintada / area_por_lata)
         preco_da_compra = total_de_latas * preco_lata
 
-        resposta = "Precisam ser compradas " + total_de_latas + " lata(s) de tinta. O preço da compra é de R$ " + real_br_money_mask(
+        resposta = "Precisa(m) ser comprada(s) " + str(total_de_latas) + " lata(s) de tinta. O preço da compra é de R$ " + real_br_money_mask(
             preco_da_compra)
         return {"resposta": resposta, "status": 200}
     except Exception as error:

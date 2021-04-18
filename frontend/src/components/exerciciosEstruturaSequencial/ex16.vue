@@ -3,31 +3,23 @@
         <div class="mt-3">
             <Breadcumb :items="itens_breadcumb"></Breadcumb>
             <b-card bg-variant="light" text-variant="black" class="shadow p-3 bg-light rounded">
-                <TextoIntrodutorio v-show="true" :texto="texto15"></TextoIntrodutorio>
+                <TextoIntrodutorio v-show="true" :texto="texto16"></TextoIntrodutorio>
 
                 <!-- <b-button class="mr-1" @click="submit()" variant="primary">Executar</b-button> -->
                 <div class="mt-3">
                     <b-form @submit="onSubmit" @reset="onReset">
-                        <b-form-group id="input-exercicio-15" label="Qual é o salário por hora de trabalho?" label-for="input-1">
+                        <b-form-group id="input-exercicio-16" label="Qual é a área a ser pintada (em m²)?" label-for="input-1">
                             <b-form-input id="input-1"
                                           autocomplete="off"
                                           v-model="form.nro1"
-                                          placeholder="Salario por hora"
+                                          placeholder="Área"
                                           required></b-form-input>
                         </b-form-group>
 
-                        <b-form-group id="input-exercicio-15.1" label="Quantas horas de trabalho no mês?" label-for="input-3">
-                            <b-form-input id="input-3"
-                                          autocomplete="off"
-                                          v-model="form.nro2"
-                                          placeholder="Número de horas"
-                                          required></b-form-input>
-                        </b-form-group>
-
-                        <b-button class="mr-1" type="submit" variant="primary">Calcular salário</b-button>
-                        <b-button type="reset" variant="danger" :disabled="mostra_resposta == false && form.nro1 == '' && form.nro2 == ''">Limpar</b-button>
+                        <b-button class="mr-1" type="submit" variant="primary">Calcular latas de tinta</b-button>
+                        <b-button type="reset" variant="danger" :disabled="mostra_resposta == false && form.nro1 == ''">Limpar</b-button>
                     </b-form>
-                    <RespostaAlerta :resposta="resp.resposta15" :mostra_resposta="mostra_resposta"></RespostaAlerta>
+                    <RespostaAlerta :resposta="resp.resposta16" :mostra_resposta="mostra_resposta"></RespostaAlerta>
                 </div>
             </b-card>
         </div>
@@ -49,13 +41,12 @@
         },
         data() {
             return {
-                texto15: "15. Faça um Programa que pergunte quanto você ganha por hora e o número de horas trabalhadas no mês. Calcule e mostre o total do seu salário no referido mês, sabendo-se que são descontados 11% para o Imposto de Renda, 8% para o INSS e 5% para o sindicato, faça um programa que nos dê: a) salário bruto. b) quanto pagou ao INSS. c) quanto pagou ao sindicato. d) o salário líquido. e) calcule os descontos e o salário líquido",
+                texto16: "16. Faça um programa para uma loja de tintas. O programa deverá pedir o tamanho em metros quadrados da área a ser pintada. Considere que a cobertura da tinta é de 1 litro para cada 3 metros quadrados e que a tinta é vendida em latas de 18 litros, que custam R$ 80,00. Informe ao usuário a quantidades de latas de tinta a serem compradas e o preço total.",
                 form: {
-                    nro1: '',
-                    nro2: '',
+                    nro1: ''
                 },
                 resp: {
-                    resposta15: "",
+                    resposta16: "",
                     status: 0
                 },     
                 mostra_resposta: false,
@@ -69,7 +60,7 @@
                         href: valores.estruturaSequencial_path
                     },
                     {
-                        text: 'Exercício 15',
+                        text: 'Exercício 16',
                         active: true
                     }
                 ]
@@ -79,19 +70,18 @@
             onSubmit(event) {
                 event.preventDefault()
 
-                if (this.form.nro1 != '' && this.form.nro2 != '') {
+                if (this.form.nro1 != '') {
                     axios.post(
                         valores.path,
                         null,
                         {
                             params: {
-                                exercicio: 15,
-                                valor1: this.form.nro1,
-                                valor2: this.form.nro2
+                                exercicio: 16,
+                                valor1: this.form.nro1
                             }
                         })
                         .then((res) => {
-                            this.resp.resposta15 = res.data.resposta
+                            this.resp.resposta16 = res.data.resposta
                             this.resp.status = res.data.status
                             this.mostra_resposta = true
 
@@ -104,7 +94,6 @@
             onReset(event) {
                 event.preventDefault()
                 this.form.nro1 = '',
-                this.form.nro2 = '',
                 this.mostra_resposta = false
             }            
         }
