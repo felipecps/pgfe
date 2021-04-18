@@ -124,7 +124,8 @@ def exercicio10(param):
         if (temperaturaFH == -0.0):
             temperaturaFH = 0.0
 
-        fare = "A temperatura de " + str(temperaturaCelsius) + " ºC convertida para Fahrenheit é de " + str(temperaturaFH) + " ºF."
+        fare = "A temperatura de " + str(temperaturaCelsius) + " ºC convertida para Fahrenheit é de " + str(
+            temperaturaFH) + " ºF."
         return {"resposta": fare, "status": 200}
     except Exception as error:
         print(error)
@@ -206,7 +207,8 @@ def exercicio14(param):
         excesso = -50 + peso
         if (excesso > 0):
             multa = 4 * excesso
-            resposta = "O excesso foi de " + str(round(excesso, 2)) + " Kg e a multa a pagar é de R$ " + real_br_money_mask(multa)
+            resposta = "O excesso foi de " + str(
+                round(excesso, 2)) + " Kg e a multa a pagar é de R$ " + real_br_money_mask(multa)
         return {"resposta": resposta, "status": 200}
     except Exception as error:
         print(error)
@@ -223,14 +225,18 @@ def exercicio15(param):
         INSS = 0.08
         sindicato = 0.05
 
-        salario_bruto = salario_hora * nro_de_horas_mes
-        pag_inss = salario_bruto * INSS
-        pag_sindicato = salario_bruto * sindicato
-        pag_IR = salario_bruto * IR
+        salario_bruto = round(salario_hora * nro_de_horas_mes, 2)
+        pag_inss = round(salario_bruto * INSS, 2)
+        pag_sindicato = round(salario_bruto * sindicato, 2)
+        pag_IR = round(salario_bruto * IR, 2)
 
         salario_liquido = salario_bruto - pag_IR - pag_inss - pag_sindicato
 
-        return {"resposta": "",
+        resposta = "O salário liquido é de R$ " + real_br_money_mask(salario_liquido) + ". INSS = R$ " + real_br_money_mask(
+            pag_inss) + ". Sindicato = R$  " + real_br_money_mask(pag_sindicato) + ". IR = R$ " + real_br_money_mask(
+            pag_IR) + "."
+
+        return {"resposta": resposta,
                 "salario_bruto": salario_bruto,
                 "ir": pag_IR,
                 "inss": pag_inss,
@@ -263,15 +269,16 @@ def exercicio16(param):
             "resposta": "Calculo impossível de ser realizado. Verifique se os valores informados são realmente números.",
             "status": 400}
 
+
 def exercicio17(param):
     try:
         tamanho_da_area_a_ser_pintada = float(param['valor1'].replace(',', '.')) * 1.1
         tamanho_lata_1 = 18
-        area_por_lata_1 = tamanho_lata_1 * 6 #108 m²
+        area_por_lata_1 = tamanho_lata_1 * 6  # 108 m²
         preco_lata_1 = 80
 
         tamanho_lata_2 = 3.6
-        area_por_lata_2 = tamanho_lata_2 * 6 #21,6 m²
+        area_por_lata_2 = tamanho_lata_2 * 6  # 21,6 m²
         preco_lata_2 = 25
 
         total_de_latas_1 = math.ceil(tamanho_da_area_a_ser_pintada / area_por_lata_1)
