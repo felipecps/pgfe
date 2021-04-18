@@ -2,8 +2,11 @@
     <div class="container">
         <div class="mt-3">
             <Breadcumb :items="itens_breadcumb"></Breadcumb>
-            <b-card bg-variant="light" border-variant="light" text-variant="black"
-                    style="box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12) !important">
+            <b-card bg-variant="light" text-variant="black" class="shadow p-3 bg-light rounded">
+                <!--
+        style="box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12) !important" >
+        -->
+
                 <TextoIntrodutorio v-show="true" :texto="texto_ex1"></TextoIntrodutorio>
 
                 <b-form @submit="onSubmit" @reset="onReset">
@@ -102,4 +105,4 @@
             opacity: 1;
         }
     }
-</style>
+</!--style>

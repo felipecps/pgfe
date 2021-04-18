@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-breadcrumb :items="items">
+        <b-breadcrumb :items="items" class="bg-light">
             <b-breadcrumb-item class="" v-for="(item, i) in items" :key="i" :to="item.to">{{item.text}}</b-breadcrumb-item>
         </b-breadcrumb>
     </div>

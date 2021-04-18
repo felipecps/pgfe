@@ -2,7 +2,7 @@
     <div class="container">
         <div class="mt-3">
             <Breadcumb :items="itens_breadcumb"></Breadcumb>
-            <b-card bg-variant="light" text-variant="black">
+            <b-card bg-variant="light" text-variant="black" class="shadow p-3 bg-light rounded">
                 <TextoIntrodutorio v-show="true" :texto="texto14"></TextoIntrodutorio>
 
                 <!-- <b-button class="mr-1" @click="submit()" variant="primary">Executar</b-button> -->
