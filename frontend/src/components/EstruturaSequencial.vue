@@ -115,6 +115,11 @@
                             nro: "/python/estruturaSequencial/ex16",
                             texto: "16. Faça um programa para uma loja de tintas. O programa deverá pedir o tamanho em metros quadrados da área a ser pintada. Considere que a cobertura da tinta é de 1 litro para cada 3 metros quadrados e que a tinta é vendida em latas de 18 litros, que custam R$ 80,00. Informe ao usuário a quantidades de latas de tinta a serem compradas e o preço total.",
                             titulo: "Exercício 16"
+                        },
+                        {
+                            nro: "/python/estruturaSequencial/ex18",
+                            texto: "18. Faça um programa que peça o tamanho de um arquivo para download (em MB) e a velocidade de um link de Internet (em Mbps), calcule e informe o tempo aproximado de download do arquivo usando este link (em minutos).",
+                            titulo: "Exercício 18"
                         }
                         //{ nro: "/python/estruturaSequencial/exemplo_para_form1entrada?nro=2&entradas=1", texto: "A. Exercicio de teste de funcionalidade." }
                     ]

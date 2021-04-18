@@ -299,7 +299,8 @@ def exercicio18(param):
         tamanho_do_arquivo_mb = float(param['valor1'].replace(',', '.'))
         velocidade_do_link_mbps = float(param['valor2'].replace(',', '.'))
         tempo_de_download = tamanho_do_arquivo_mb / velocidade_do_link_mbps
-        resposta = "O tempo para download do arquivo é de " + str(tempo_de_download) + "segundos"
+        tempo_de_download_em_minutos = round(tempo_de_download / 60, 2)
+        resposta = "O tempo para download do arquivo é de " + str(tempo_de_download_em_minutos) + " minutos."
         return {"resposta": resposta, "status": 200}
     except Exception as error:
         print(error)
