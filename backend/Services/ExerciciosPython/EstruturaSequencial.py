@@ -232,7 +232,8 @@ def exercicio15(param):
 
         salario_liquido = salario_bruto - pag_IR - pag_inss - pag_sindicato
 
-        resposta = "O salário liquido é de R$ " + real_br_money_mask(salario_liquido) + ". INSS = R$ " + real_br_money_mask(
+        resposta = "O salário liquido é de R$ " + real_br_money_mask(
+            salario_liquido) + ". INSS = R$ " + real_br_money_mask(
             pag_inss) + ". Sindicato = R$  " + real_br_money_mask(pag_sindicato) + ". IR = R$ " + real_br_money_mask(
             pag_IR) + "."
 
@@ -260,7 +261,8 @@ def exercicio16(param):
         total_de_latas = math.ceil(tamanho_da_area_a_ser_pintada / area_por_lata)
         preco_da_compra = total_de_latas * preco_lata
 
-        resposta = "Precisa(m) ser comprada(s) " + str(total_de_latas) + " lata(s) de tinta. O preço da compra é de R$ " + real_br_money_mask(
+        resposta = "Precisa(m) ser comprada(s) " + str(
+            total_de_latas) + " lata(s) de tinta. O preço da compra é de R$ " + real_br_money_mask(
             preco_da_compra)
         return {"resposta": resposta, "status": 200}
     except Exception as error:
@@ -272,7 +274,7 @@ def exercicio16(param):
 
 def exercicio17(param):
     try:
-        tamanho_da_area_a_ser_pintada = float(param['valor1'].replace(',', '.')) * 1.1
+        tamanho_da_area_a_ser_pintada = round(float(param['valor1'].replace(',', '.')) * 1.1, 2)
         tamanho_lata_1 = 18
         area_por_lata_1 = tamanho_lata_1 * 6  # 108 m²
         preco_lata_1 = 80
@@ -287,11 +289,26 @@ def exercicio17(param):
         total_de_latas_2 = math.ceil(tamanho_da_area_a_ser_pintada / area_por_lata_2)
         preco_da_compra_2 = total_de_latas_2 * preco_lata_2
 
-        nro_latas1 = tamanho_da_area_a_ser_pintada % area_por_lata_1
+        nro_latas1 = tamanho_da_area_a_ser_pintada // area_por_lata_1
         area_restante = tamanho_da_area_a_ser_pintada - (nro_latas1 * area_por_lata_1)
+        if area_restante < 0:
+            area_restante = 0
         nro_latas2 = math.ceil(area_restante / area_por_lata_2)
-    except:
-        None
+        custo_misto = nro_latas1 * preco_lata_1 + nro_latas2 * preco_lata_2
+
+        resposta = "Utilizando latas de 18 litros, o total de latas é " + str(total_de_latas_1) + " ao custo de R$ " \
+                   + real_br_money_mask(preco_da_compra_1) + ". Utilizando latas de 3.6 litros, o total de latas é " \
+                   + str(total_de_latas_2) + " ao custo de R$ " + real_br_money_mask(preco_da_compra_2) \
+                   + ". Já utilizando ambas opções, o número total de latas de 18 litros é " + str(nro_latas1) \
+                   + " e o número de latas de 3.6 litros é " + str(nro_latas2) + ", ao custo total de R$ " \
+                   + real_br_money_mask(custo_misto)
+
+        return {"resposta": resposta, "status": 200}
+    except Exception as error:
+        print(error)
+        return {
+            "resposta": "Calculo impossível de ser realizado. Verifique se os valores informados são realmente números.",
+            "status": 400}
 
 
 def exercicio18(param):
