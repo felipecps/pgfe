@@ -1,5 +1,6 @@
 ﻿<template>
     <div class="container">
+        <Breadcumb :items="itens_breadcumb"></Breadcumb>
         <div class="mb-5">
             <div class="list-group" v-for="link in links">
                 <a :href="link.nro" class="list-group-item list-group-item-action flex-column align-items-start mt-4 shadow-sm p-3 bg-light rounded">
@@ -15,9 +16,25 @@
 
 
 <script>
-        export default {
+    import Breadcumb from "@/components/Python/modulos/Breadcumb.vue";
+    const valores = require('@/components/exerciciosEstruturaSequencial/utils/valores.js');
+    export default {
+        components: {
+            Breadcumb
+        },
             data() {
                 return {
+                    itens_breadcumb: [
+                        {
+                            text: valores.home_text,
+                            href: valores.home_path
+                        },
+                        {
+                            text: valores.estruturaSequencial_text,
+                            href: valores.estruturaSequencial_path,
+                            active: true
+                        }
+                    ],
                     links: [
                         {
                             nro: "/python/estruturaSequencial/ex1",
