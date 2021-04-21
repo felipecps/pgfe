@@ -17,10 +17,12 @@
 
 <script>
     import Breadcumb from "@/components/Python/modulos/Breadcumb.vue";
+    import NavBar from "@/components/Python/modulos/NavBar.vue";
     const valores = require('@/components/exerciciosEstruturaSequencial/utils/valores.js');
     export default {
         components: {
-            Breadcumb
+            Breadcumb,
+            NavBar
         },
             data() {
                 return {
