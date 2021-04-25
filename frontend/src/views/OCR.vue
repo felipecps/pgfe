@@ -40,7 +40,8 @@
     export default {
         data() {
             return {
-                imageData: '',
+                imageData: [],
+                files: []
             }
         },
         methods: {
@@ -85,15 +86,6 @@
                     console.log("there are no files.");
                 }
             }
-        },
-        mounted: {
-
-        },
-        computed: {
-            //https://guivern.hashnode.dev/vue-js-differences-between-computed-and-watch
-        },
-        watch: {
-
         }
             
     };
