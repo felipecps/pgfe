@@ -1,32 +1,15 @@
 ﻿<template>
     <div class="container">
-        <v-file-input accept="image/*"
-                      label="File input"></v-file-input>
-
-        <hr />
-
+ 
         <v-file-input accept="image/png, image/jpeg, image/bmp"
                       placeholder="Pick an avatar"
+                      show-size 
+                      counter 
+                      chips 
+                      label="Arquivo Geral"
                       v-model="imageData"
                       prepend-icon="mdi-camera"></v-file-input>
-        <v-btn color="primary" @click="onUpload">Upload</v-btn>
-
-
-
-
-
-
-        <v-layout>
-            <v-flex>
-                <v-file-input show-size counter chips multiple label="Arquivo Geral" ref="myfile" v-model="files"></v-file-input>
-            </v-flex>
-            <v-flex>
-                <v-btn color="primary" text @click="submitFiles">test</v-btn>
-            </v-flex>
-        </v-layout>
-
-
-
+        <v-btn @click="onUpload">Upload</v-btn>
 
     </div>
 </template>
