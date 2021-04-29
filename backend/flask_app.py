@@ -4,12 +4,12 @@ from datetime import datetime
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from PIL import Image # Importando o módulo Pillow para abrir a imagem no script
-import pytesseract # Módulo para a utilização da tecnologia OCR
+#from PIL import Image # Importando o módulo Pillow para abrir a imagem no script
+#import pytesseract # Módulo para a utilização da tecnologia OCR
 
 # from Services.SendEmail.sendEmail import send_email
 from Services.ExerciciosPython.DistribuirExercicios import distribuir_exercicios
-from Services.OCR.ocr_utils import extair_texto
+#from Services.OCR.ocr_utils import extair_texto
 from Services.SendEmail.sendEmail import send_email
 
 # configuration
