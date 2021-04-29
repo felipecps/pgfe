@@ -4,9 +4,12 @@ from datetime import datetime
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from PIL import Image # Importando o módulo Pillow para abrir a imagem no script
+import pytesseract # Módulo para a utilização da tecnologia OCR
 
 # from Services.SendEmail.sendEmail import send_email
 from Services.ExerciciosPython.DistribuirExercicios import distribuir_exercicios
+from Services.OCR.ocr_utils import extair_texto
 from Services.SendEmail.sendEmail import send_email
 
 # configuration
@@ -42,10 +45,25 @@ def ping_pong():
 
 @app.route('/ocr', methods=['POST'])
 def ocr():
+
     params = {}
     # http://pythonclub.com.br/extraindo-texto-de-imagens-com-python.html
-    file = request.files["file"].read()
-    return ""
+    file = request.files["file"]
+    print(file)
+    file_bytes = file.read()
+    f = open(os.getcwd() + "\Services\OCR\sample.png", "wb")
+    f.write(file_bytes)
+    f.close()
+
+    resposta = extair_texto(os.getcwd() + "\Services\OCR\sample.png")
+    try:
+        os.remove(os.getcwd() + "\Services\OCR\sample.png")
+    except Exception as error:
+        print("OCR falhou para remover o arquivo")
+
+    return {
+        "resposta": resposta,
+        "status": 200}
 
 
 @app.route('/hora_atual')

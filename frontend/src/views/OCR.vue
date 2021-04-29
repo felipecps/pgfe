@@ -1,16 +1,18 @@
 ﻿<template>
     <div class="container">
- 
-        <v-file-input accept="image/png, image/jpeg, image/bmp"
-                      placeholder="Pick an avatar"
-                      show-size 
-                      counter 
-                      chips 
-                      label="Arquivo Geral"
-                      v-model="imageData"
-                      prepend-icon="mdi-camera"></v-file-input>
-        <v-btn @click="onUpload">Upload</v-btn>
-
+        <div>
+            <v-file-input accept="image/png, image/jpeg, image/bmp"
+                          placeholder="Imagem"
+                          show-size
+                          counter
+                          label="Selecione uma imagem para extração de texto"
+                          v-model="imageData"
+                          prepend-icon="mdi-camera"></v-file-input>
+            <v-btn @click="onUpload">Extrair texto</v-btn>
+        </div>
+        <div class="mt-3">
+            <b-alert v-if="mostra_ocr" show>{{ resp.ocr }}</b-alert>
+        </div>
     </div>
 </template>
 
@@ -24,7 +26,12 @@
         data() {
             return {
                 imageData: [],
-                files: []
+                files: [],
+                resp: {
+                    ocr: "",
+                    status: 0
+                }, 
+                mostra_ocr: false
             }
         },
         methods: {
@@ -33,15 +40,16 @@
                 let formData = new FormData();
                 formData.append('file', this.imageData);
                 axios.post(
-                    "http://localhost:5000/ocr"
-                    , formData
-                    , { headers: { "Content-Type": "multipart/form-data" } }
+                    "http://localhost:5000/ocr",
+                    formData,
+                    { headers: { "Content-Type": "multipart/form-data" } }
                 )
-                    .then(response => {
-                        //...
+                    .then(res => {
+                        this.resp.ocr = res.data.resposta
+                        this.mostra_ocr = true
                     })
-                    .catch(e => {
-                        //...
+                    .catch(error => {
+                        console.error(error);
                     })                
             },
             submitFiles() {
@@ -59,8 +67,9 @@
                     axios
                         .post("http://localhost:5000/ocr", formData)
                         .then(response => {
+                            this.resp.ocr = res.data.resposta
                             console.log("Success!");
-                            console.log({ response });
+                            //console.log({ response });
                         })
                         .catch(error => {
                             console.log({ error });
