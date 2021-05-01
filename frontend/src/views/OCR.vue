@@ -11,7 +11,7 @@
             <v-btn @click="ocr">Extrair texto</v-btn>
         </div>
         <div class="mt-3">
-            <b-alert v-if="mostra_ocr" show>{{ resp.ocr }}</b-alert>
+            <b-alert v-if="mostra_ocr" show>{{ texto_ocr }}</b-alert>
         </div>
     </div>
 </template>
@@ -34,38 +34,14 @@
                     ocr: "",
                     status: 0
                 }, 
-                mostra_ocr: false
+                mostra_ocr: false,
+                texto_ocr: ""
+
             }
         },
         methods: {
             onUpload() {
                 mylib.ocr()              
-            },
-            submitFiles() {
-                if (this.files) {
-                    let formData = new FormData();
-
-                    // files
-                    for (let file of this.files) {
-                        formData.append("files", file, file.name);
-                    }
-
-                    // additional data
-                    formData.append("test", "foo bar");
-
-                    axios
-                        .post("http://localhost:5000/ocr", formData)
-                        .then(response => {
-                            this.resp.ocr = res.data.resposta
-                            console.log("Success!");
-                            //console.log({ response });
-                        })
-                        .catch(error => {
-                            console.log({ error });
-                        });
-                } else {
-                    console.log("there are no files.");
-                }
             },
             ocr() {
                 Tesseract.recognize(
@@ -73,7 +49,9 @@
                     'eng',
                     { logger: m => console.log(m) }
                 ).then(({ data: { text } }) => {
-                    console.log(text);
+                    //console.log(text);
+                    this.mostra_ocr = true
+                    this.texto_ocr = text
                 })
             }
         }
