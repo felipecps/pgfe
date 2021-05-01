@@ -6,7 +6,7 @@
                           show-size
                           counter
                           label="Selecione uma imagem para extração de texto"
-                          v-model="imageData"
+                          v-model="files"
                           prepend-icon="mdi-camera"></v-file-input>
             <v-btn @click="ocr">Extrair texto</v-btn>
         </div>
@@ -28,7 +28,6 @@
     export default {
         data() {
             return {
-                imageData: [],
                 files: [],
                 resp: {
                     ocr: "",
@@ -43,18 +42,43 @@
             onUpload() {
                 mylib.ocr()              
             },
+            /*submitFiles() {
+            -                if (this.files) {
+            -                    let formData = new FormData();
+            -
+            -                    // files
+            -                    for (let file of this.files) {
+            -                        formData.append("files", file, file.name);
+            -                    }
+            -
+            -                    // additional data
+            -                    formData.append("test", "foo bar");
+            -
+            -                    axios
+            -                        .post("http://localhost:5000/ocr", formData)
+            -                        .then(response => {
+            -                            this.resp.ocr = res.data.resposta
+            -                            console.log("Success!");
+            -                            //console.log({ response });
+            -                        })
+            -                        .catch(error => {
+            -                            console.log({ error });
+            -                        });
+            -                } else {
+            -                    console.log("there are no files.");
+            -                }
+            -            },*/
             ocr() {
+                console.log(this.files)
                 Tesseract.recognize(
-                    'http://127.0.0.1:8887/eng_bw.png',
+                    this.files,
                     'eng',
                     { logger: m => console.log(m) }
                 ).then(({ data: { text } }) => {
-                    //console.log(text);
                     this.mostra_ocr = true
                     this.texto_ocr = text
                 })
             }
         }
-            
     };
 </script>
