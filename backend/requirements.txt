@@ -9,15 +9,10 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 lxml==4.6.2
 MarkupSafe==1.1.1
-Pillow==8.2.0
 premailer==3.7.0
-pytesseract==0.3.7
-python-bidi==0.4.2
 requests==2.25.0
-scikit-image==0.18.1
 secure-smtplib==0.1.1
 six==1.15.0
-torchvision==0.9.1
 tornado==6.1
 tzlocal==2.1
 urllib3==1.26.2
