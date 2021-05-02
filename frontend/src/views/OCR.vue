@@ -40,7 +40,7 @@
                 let formData = new FormData();
                 formData.append('file', this.imageData);
                 axios.post(
-                    "https://felipecps.pythonanywhere.com/ocr",
+                    "http://localhost:5000/ocr",
                     formData,
                     { headers: { "Content-Type": "multipart/form-data" } }
                 )
