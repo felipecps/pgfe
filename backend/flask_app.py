@@ -40,13 +40,12 @@ def envia_email():
 def ping_pong():
     return jsonify('pong!')
 
-@app.route('/ocr', methods=['POST'])
+@app.route('/ocr')
 def ocr():
     params = {}
     # http://pythonclub.com.br/extraindo-texto-de-imagens-com-python.html
-    file = request.files["file"].read()
-    return ""
-
+    print(request)
+    pass
 
 @app.route('/hora_atual')
 def hora_atual():
