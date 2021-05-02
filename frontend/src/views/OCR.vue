@@ -8,7 +8,7 @@
                           label="Selecione uma imagem para extração de texto"
                           v-model="imageData"
                           prepend-icon="mdi-camera"></v-file-input>
-            <v-btn @click="ocr">Extrair texto</v-btn>
+            <v-btn @click="onUpload">Extrair texto</v-btn>
         </div>
         <div class="mt-3">
             <b-alert v-if="mostra_ocr" show>{{ resp.ocr }}</b-alert>
@@ -21,9 +21,6 @@
 
 <script>
     import axios from 'axios';
-    var mylib = require('@/modulos/OCR/ocr.js');
-
-    import Tesseract from 'tesseract.js';
 
     export default {
         data() {
@@ -39,7 +36,21 @@
         },
         methods: {
             onUpload() {
-                mylib.ocr()              
+                console.log("upload")
+                let formData = new FormData();
+                formData.append('file', this.imageData);
+                axios.post(
+                    "https://felipecps.pythonanywhere.com/ocr",
+                    formData,
+                    { headers: { "Content-Type": "multipart/form-data" } }
+                )
+                    .then(res => {
+                        this.resp.ocr = res.data.resposta
+                        this.mostra_ocr = true
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })                
             },
             submitFiles() {
                 if (this.files) {
@@ -66,15 +77,6 @@
                 } else {
                     console.log("there are no files.");
                 }
-            },
-            ocr() {
-                Tesseract.recognize(
-                    'http://127.0.0.1:8887/eng_bw.png',
-                    'eng',
-                    { logger: m => console.log(m) }
-                ).then(({ data: { text } }) => {
-                    console.log(text);
-                })
             }
         }
             
