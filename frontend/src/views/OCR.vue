@@ -67,6 +67,8 @@
                 })
                 .catch((error) => {
                     console.error(error);
+                    this.texto_ocr = error
+                    this.mostra_ocr = true
                 })
             },
             onReset(event) {
