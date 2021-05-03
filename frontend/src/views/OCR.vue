@@ -1,7 +1,7 @@
 ﻿<template>
     <div class="container">
         <div>
-            <b-img :src="require('../assets/OCR_2.png')" fluid alt="Responsive image"></b-img>
+            <b-img :src="require('../assets/banner_ocr.png')" fluid alt="Responsive image"></b-img>
         </div>
 
         <!-- Styled -->
@@ -25,9 +25,8 @@
 
 
             <div class="text-center mt-3" v-if="spin">
-                <b-spinner v-for="variant in variants"
-                           :variant="variant"
-                           :key="variant"></b-spinner>
+                <p>{{ tessaract_status_texto }}</p>
+                <b-progress :value="progress_value" :max="max" show-progress animated></b-progress>
             </div>
         </div>
     </div>
@@ -40,16 +39,20 @@
         data() {
             return {
                 file1: null,
+                tessaract_status_texto: "",
                 variants: ['info'],
                 texto_ocr: "",
                 mostra_ocr: false,
                 spin: false,
+                progress_value: 0,
+                max: 100
             }
         },
         methods: {
             onSubmit(evt) {
                 evt.preventDefault()
                 console.log(this.file1)
+                this.progress_value = 0
                 this.texto_ocr = ""
                 this.spin = true
                 this.mostra_ocr = false
@@ -57,8 +60,8 @@
                 Tesseract.recognize(
                     this.file1,
                     'eng',
-                    {   
-                        logger: m => console.log(m),
+                    {
+                        logger: m => this.atualiza_porcentagem(m)//console.log(m)
                     }
                 ).then(({ data: { text } }) => {
                     this.spin = false
@@ -71,8 +74,22 @@
                     this.mostra_ocr = true
                 })
             },
+            atualiza_porcentagem(m) {
+                
+                if (m.status != "recognizing text") {
+                    this.tessaract_status_texto = "Inicializando..."
+                    this.progress_value += (100 / 9)
+                    
+                }
+
+                if (m.status == "recognizing text") {
+                    this.tessaract_status_texto = "Extraindo texto..."
+                    this.progress_value = m.progress * 100
+                }
+            },
             onReset(event) {
                 event.preventDefault()
+                this.progress_value
                 this.spin = false
                 this.mostra_ocr = false
                 this.texto_ocr = ""
