@@ -19,7 +19,7 @@
                 </div>
             </b-form>
 
-            <div class="mt-3" v-if="mostra_ocr && !ocr_suspenso">
+            <div class="mt-3" v-if="mostra_ocr">
                 <b-alert show>{{ texto_ocr }}</b-alert>
             </div>
 
@@ -42,6 +42,7 @@
                 file1: null,
                 variants: ['info'],
                 texto_ocr: "",
+                mostra_ocr: false,
                 spin: false,
             }
         },
@@ -51,6 +52,7 @@
                 console.log(this.file1)
                 this.texto_ocr = ""
                 this.spin = true
+                this.mostra_ocr = false
                 
                 Tesseract.recognize(
                     this.file1,
@@ -61,11 +63,16 @@
                 ).then(({ data: { text } }) => {
                     this.spin = false
                     this.texto_ocr = text
+                    this.mostra_ocr = true
+                })
+                .catch((error) => {
+                    console.error(error);
                 })
             },
             onReset(event) {
                 event.preventDefault()
                 this.spin = false
+                this.mostra_ocr = false
                 this.texto_ocr = ""
                 this.files = []
             }
