@@ -26,16 +26,19 @@
                                   v-model="form.quantidade"
                                   placeholder="Quantas ações você comprou ou vendeu?"
                                   required></b-form-input>
+
                     <label class="mt-3" for="input-preco">Preço unitário</label>
                     <b-form-input id="input-preco"
                                   v-model="form.preco"
                                   placeholder="Qual foi o preço unitário?"
                                   required></b-form-input>
+
                     <label class="mt-3" for="inline-form-custom-select-tipo">Compra/Venda</label>
                     <b-form-select id="inline-form-custom-select-tipo"
                                    v-model="form.selected_compra_venda"
                                    :options="options"></b-form-select>
                 </b-form>
+
                 <b-button class="mt-3 mr-1" v-on:click="addToTable" variant="primary">Adicionar</b-button>
                 <b-button class="mt-3" v-on:click="resetAllFields" variant="danger">Limpar</b-button>
             </b-card>
@@ -57,8 +60,6 @@
 </template>
 
 <script>
-    import axios from 'axios';
-
     export default {
         name: 'CalculaCorretagem',
         data() {
@@ -140,15 +141,7 @@
                     if (this.form.selected_compra_venda == 'Venda') {
                         preco_da_compra = preco_da_compra * -1
                     }
-                    let precoDaCorretagem = 0
-                    if (this.form.quantidade % 100 == 0) {
-                        this.form.precoDaCorretagem = 4.99
-                    } else {
-                        this.form.precoDaCorretagem = 2.49
-                    }
-
-
-
+                    
                     this.tabela_temp.push({
                         Ação: this.form.acao,
                         Tipo: this.form.selected_compra_venda,
@@ -176,7 +169,7 @@
             }
         },
         created() {
-
+            console.log("created")
         },
     };
 </script>
