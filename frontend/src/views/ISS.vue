@@ -3,8 +3,9 @@
         <div>
             <b-img :src="require('../assets/iss.jpg')" fluid alt="Responsive image"></b-img>
         </div>
-        API: {{ texto }}
+        <!-- API: {{ texto }}
         <hr />
+        -->
         Latitude: {{ latitude }}
         <hr />
         Longitude: {{ longitude }}
