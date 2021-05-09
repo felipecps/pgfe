@@ -7,6 +7,7 @@ import EmailAlert from '../views/EmailAlert.vue';
 import CalculaCorretagem from '../views/CalculaCorretagem.vue';
 import PythonExercicios from '../views/Python.vue';
 import OCR from '../views/OCR.vue';
+import ISS from '../views/ISS.vue';
 import estruturaSequencial from '../components/EstruturaSequencial.vue';
 import Ex1 from '../components/exerciciosEstruturaSequencial/ex1.vue';
 import Ex2 from '../components/exerciciosEstruturaSequencial/ex2.vue';
@@ -63,6 +64,11 @@ const routes = [
     path: '/ocr',
     name: 'OCR',
     component: OCR,
+   },
+   {
+    path: '/iss',
+    name: 'ISS',
+    component: ISS,
    },
    {
     path: '/python/estruturaSequencial',
