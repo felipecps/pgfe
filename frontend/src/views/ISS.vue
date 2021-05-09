@@ -1,5 +1,8 @@
 ﻿<template>
     <div class="container">
+        <div>
+            <b-img :src="require('../assets/iss.jpg')" fluid alt="Responsive image"></b-img>
+        </div>
         API: {{ texto }}
         <hr />
         Latitude: {{ latitude }}
