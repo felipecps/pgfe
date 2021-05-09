@@ -21,11 +21,11 @@
         },
         methods: {
             posicao_iss() {
-                axios.get("http://api.open-notify.org/iss-now.json")
+                axios.get("https://api.wheretheiss.at/v1/satellites/25544")
                     .then((res) => {
                         this.texto = res
-                        this.latitude = res.data.iss_position.latitude
-                        this.longitude = res.data.iss_position.longitude
+                        this.latitude = res.data.latitude
+                        this.longitude = res.data.longitude
                     })
                     .catch((error) => {console.error(error);})
             }            
