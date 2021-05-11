@@ -14,6 +14,8 @@
 </template>
 
 <script>
+//https://www.digitalocean.com/community/tutorials/vuejs-vue-google-maps
+//https://www.npmjs.com/package/vue2-google-maps
     import axios from 'axios';
     export default {
         data() {
@@ -31,11 +33,11 @@
                         this.latitude = res.data.latitude
                         this.longitude = res.data.longitude
                     })
-                    .catch((error) => {console.error(error);})
-            }            
+                    .catch((error) => { console.error(error); })
+            }
         },
         created() {
             this.posicao_iss()
         }
-    }         
+    }
 </script>
