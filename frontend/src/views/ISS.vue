@@ -12,7 +12,7 @@
         <hr />
 
         <div id="app">
-            <GoogleMap />
+            <GoogleMap :latitude="latitude" :longitude="longitude"/>
         </div>
         <br />
     </div>
@@ -30,8 +30,8 @@
         data() {
             return {
                 texto: "",
-                latitude: "",
-                longitude: "",
+                latitude: 0,
+                longitude: 0,
               
             }
         },
