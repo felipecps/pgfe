@@ -1,28 +1,38 @@
 ﻿<template>
-    <div class="container">
+    <div id="app" class="container">
         <div>
             <b-img :src="require('../assets/iss.jpg')" fluid alt="Responsive image"></b-img>
         </div>
         <!-- API: {{ texto }}
-        <hr />
-        -->
+    <hr />
+    -->
         Latitude: {{ latitude }}
         <hr />
         Longitude: {{ longitude }}
         <hr />
+
+        <div id="app">
+            <GoogleMap />
+        </div>
+        <br />
     </div>
 </template>
 
 <script>
-//https://www.digitalocean.com/community/tutorials/vuejs-vue-google-maps
-//https://www.npmjs.com/package/vue2-google-maps
+// Tutorial completo: https://www.digitalocean.com/community/tutorials/vuejs-vue-google-maps
     import axios from 'axios';
+    import GoogleMap from "@/components/GoogleMap.vue";
     export default {
+        name: 'App',
+        components: {
+            GoogleMap
+        },
         data() {
             return {
                 texto: "",
                 latitude: "",
-                longitude: ""
+                longitude: "",
+              
             }
         },
         methods: {
@@ -41,3 +51,4 @@
         }
     }
 </script>
+
