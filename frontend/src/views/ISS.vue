@@ -3,29 +3,32 @@
         <div>
             <b-img :src="require('../assets/iss.jpg')" fluid alt="Responsive image"></b-img>
         </div>
-        <!-- API: {{ texto }}
+        <!-- API:
+            {{ texto }}
     <hr />
     -->
-        Latitude: {{ latitude }}
-        <hr />
-        Longitude: {{ longitude }}
-        <hr />
-
-        <div id="app">
-            <GoogleMap :latitude="latitude" :longitude="longitude"/>
+        <div class="mt-3">
+            Latitude: {{ latitude }}
+            <hr />
+            Longitude: {{ longitude }}
+            <hr />
         </div>
-        <br />
+        <div class="mt-3 mb-3">
+            <h1>
+                O mapa será adicionado em breve.
+            </h1>
+        </div>
     </div>
 </template>
 
 <script>
 // Tutorial completo: https://www.digitalocean.com/community/tutorials/vuejs-vue-google-maps
     import axios from 'axios';
-    import GoogleMap from "@/components/GoogleMap.vue";
+    //import GoogleMap from "@/components/GoogleMap.vue";
+    //import Leaflet from "@/components/Leaflet.vue";
     export default {
         name: 'App',
         components: {
-            GoogleMap
         },
         data() {
             return {
