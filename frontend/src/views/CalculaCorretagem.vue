@@ -12,6 +12,7 @@
                                       v-model="valor_nota"
                                       placeholder="Qual é o valor da nota de corretagem?"
                                       required
+                                      :disabled="entrada_de_valor"
                                       autocomplete="off"></b-form-input>
                     </b-card>
                 </div>
@@ -69,6 +70,7 @@
         name: 'CalculaCorretagem',
         data() {
             return {
+                entrada_de_valor: false,
                 form: {
                     acao: '',
                     quantidade: '',
@@ -131,6 +133,7 @@
             },
             onSubmit(event) {
                 event.preventDefault()
+                this.entrada_de_valor = true
                 this.preco_editado = this.form.preco.replace(/,/g, '.')
                 let preco_da_compra = this.form.quantidade * this.preco_editado
                 if (this.form.selected_compra_venda == 'Compra') {
@@ -149,9 +152,14 @@
                     Total: null,
                 })
                 this.items_da_tabela = this.atualizaItems(this.tabela_temp)
+                this.form.acao = ''
+                this.form.quantidade = ''
+                this.form.preco = ''
+                this.form.selected_compra_venda = null
             },
             onReset(event) {
                 event.preventDefault()
+                this.entrada_de_valor = false
                 this.form.acao = ''
                 this.form.quantidade = ''
                 this.form.preco = ''
