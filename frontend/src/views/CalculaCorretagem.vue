@@ -23,18 +23,21 @@
                         <b-form-input id="input-codigo-da-acao"
                                       v-model="form.acao"
                                       placeholder="Qual é o código da ação?"
+                                      autocomplete="off"
                                       required></b-form-input>
 
                         <label class="mt-3" for="input-quantidade">Quantidade</label>
                         <b-form-input id="input-quantidade"
                                       v-model="form.quantidade"
                                       placeholder="Quantas ações você comprou ou vendeu?"
+                                      autocomplete="off"
                                       required></b-form-input>
 
                         <label class="mt-3" for="input-preco">Preço unitário</label>
                         <b-form-input id="input-preco"
                                       v-model="form.preco"
                                       placeholder="Qual foi o preço unitário?"
+                                      autocomplete="off"
                                       required></b-form-input>
 
                         <label class="mt-3" for="inline-form-custom-select-tipo">Compra/Venda</label>
@@ -71,7 +74,7 @@
                 },
                 valor_nota: '',
                 showDismissibleAlert: false,
-                fields: ['Ação', 'Tipo', 'Valor', 'Peso', 'Taxas', 'Total'],
+                fields: ['Ação', 'Tipo', 'Quantidade', 'Valor', 'Peso', 'Taxas', 'Total'],
                 options: [
                     { value: null, text: 'Escolha...' },
                     { value: 'Compra', text: 'Compra' },
@@ -131,6 +134,7 @@
                 this.tabela_temp.push({
                     Ação: this.form.acao,
                     Tipo: this.form.selected_compra_venda,
+                    Quantidade: this.form.quantidade,
                     ValorSemFormatacao: preco_da_compra,
                     Valor: this.converter(preco_da_compra),
                     Corretagem: this.form.precoDaCorretagem,
