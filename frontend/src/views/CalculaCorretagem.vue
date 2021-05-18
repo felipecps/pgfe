@@ -48,7 +48,13 @@
                     </b-card>
                 </div>
                 <b-button class="mt-3 mr-1" type="submit" variant="primary">Adicionar</b-button>
-                <b-button class="mt-3" type="reset" variant="danger">Limpar</b-button>
+                <b-button class="mt-3" type="reset" variant="danger" 
+                          :disabled="valor_nota == '' 
+                          && form.acao == ''
+                          && form.quantidade == ''
+                          && form.preco == ''
+                          && form.selected_compra_venda == null
+                          ">Limpar</b-button>
             </b-form>
 
             <div class="mt-3">
