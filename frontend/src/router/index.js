@@ -5,6 +5,7 @@ import Ping from '../views/Ping.vue';
 import PaginaInicial from '../views/PaginaInicial.vue';
 import EmailAlert from '../views/EmailAlert.vue';
 import CalculaCorretagem from '../views/CalculaCorretagem.vue';
+import CalculadoraFinanceira from '../views/CalculadoraFinanceira.vue';
 import PythonExercicios from '../views/Python.vue';
 import OCR from '../views/OCR.vue';
 import ISS from '../views/ISS.vue';
@@ -54,7 +55,12 @@ const routes = [
     path: '/calculacorretagem',
     name: 'CalculaCorretagem',
     component: CalculaCorretagem,
-   },
+    },
+    {
+        path: '/calculadorafinanceira',
+        name: 'CalculadoraFinanceira',
+        component: CalculadoraFinanceira,
+    },
    {
     path: '/python',
     name: 'PythonExercicios',
