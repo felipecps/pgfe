@@ -1,4 +1,5 @@
 #VER: https://cmdlinetips.com/2020/02/useful-personal-finance-functions-numpy-financial/
+# https://numpy.org/numpy-financial/latest/
 
 import numpy_financial as np
 interestRate = 0.02  # Annual interest rate
