@@ -50,8 +50,8 @@
                         <td />
                         <td />
                         <td><strong>Total</strong></td>
-                        <td><strong>{{ total_bruto_reais}}</strong></td>
-                        <td><strong>{{ total_liquido_reais}}</strong></td>
+                        <td><strong>{{ total_bruto_reais }}</strong></td>
+                        <td><strong>{{ total_liquido_reais }}</strong></td>
                     </template>
                 </b-table>
                 
@@ -77,6 +77,8 @@
                     para_dia: '',
                     nro_de_dias_ate_vencimento: 0
                 },
+                total_bruto_reais: 0,
+                total_liquido_reais: 0,
                 total_bruto: 0,
                 total_liquido: 0,
                 mostra_total: false,
@@ -151,6 +153,10 @@
                 this.form.para_dia = ''
                 this.form.nro_de_dias_ate_vencimento = 0
                 this.items_da_tabela = []
+                this.total_liquido_reais = 0
+                this.total_bruto_reais = 0
+                this.total_bruto = 0
+                this.total_liquido = 0
             }
         }
     }; 
