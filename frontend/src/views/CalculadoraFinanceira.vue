@@ -11,6 +11,13 @@
         <div class="mt-3">
             <b-form @submit="onSubmit" @reset="onReset">
                 <b-card bg-variant="light" text-variant="black">
+                    <b-form-group label="Formato do cálculo" v-slot="{ ariaDescribedby }">
+                        <b-form-radio-group v-model="form.radio_selected"
+                                            :options="option_calculo_radio"
+                                            :aria-describedby="ariaDescribedby"
+                                            name="radio-inline"></b-form-radio-group>
+                    </b-form-group>
+                    
                     <b-form-group id="input-taxa-fg" label="Qual é a taxa mensal?" label-for="input-taxa-fi">
                         <b-form-input id="input-taxa-fi"
                                       autocomplete="off"
@@ -18,7 +25,7 @@
                                       :disabled="disable_taxa_mensal"
                                       placeholder="% a.m."
                                       required></b-form-input>
-                    </b-form-group>
+                    </b-form-group>                   
 
                     <b-form-group id="input-valor-fg" label="Qual o valor do cheque?" label-for="input-valor-fi">
                         <b-form-input id="input-valor-fi"
@@ -82,8 +89,14 @@
                     taxa_mensal: '',
                     valor_do_cheque: '',
                     para_dia: '',
-                    nro_de_dias_ate_vencimento: 0
+                    nro_de_dias_ate_vencimento: 0,
+                    radio_selected: 'ari',
                 },
+                
+                option_calculo_radio: [
+                    { text: 'Ari', value: 'ari' },
+                    { text: 'Calculadora', value: 'calculadora' }
+                ],
                 total_bruto_reais: 0,
                 total_liquido_reais: 0,
                 total_bruto: 0,
@@ -91,7 +104,7 @@
                 mostra_total: false,
                 disable_taxa_mensal: false,
                 items_da_tabela: [],
-                fields: ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Liquido'],
+                fields: ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido'],
                 diff: 0,
                 hoje: new Date(),
             };
@@ -114,7 +127,15 @@
                 let finance = new Finance();
                 let valor_bruto = this.form.valor_do_cheque.replace(",", ".")
                 let taxa = this.form.taxa_mensal.replace(",", ".").replace(" ", "").replace("%", "")
-                let valor_liquido = finance.PV(taxa / 30, valor_bruto, this.form.nro_de_dias_ate_vencimento)
+                let valor_liquido = 0
+
+                if (this.form.radio_selected == 'ari') {
+                    valor_liquido = valor_bruto - (((valor_bruto * taxa / 100) / 30) * this.form.nro_de_dias_ate_vencimento)
+                }
+                else {
+                    valor_liquido = finance.PV(taxa / 30, valor_bruto, this.form.nro_de_dias_ate_vencimento)
+                } 
+                
                 console.log(valor_liquido)
                 var data = this.formatDate(this.form.para_dia)
                 this.total_bruto = this.total_bruto + parseFloat(valor_bruto)
@@ -125,10 +146,11 @@
                     'Nro de dias': this.form.nro_de_dias_ate_vencimento,
                     Juros: taxa + '%',
                     'Valor Bruto': this.converter(valor_bruto),
-                    'Valor Liquido': this.converter(valor_liquido)
+                    'Valor Líquido': this.converter(valor_liquido)                    
                 })
                 this.form.valor_do_cheque = ''
                 this.form.para_dia = ''
+                this.form.nro_de_dias_ate_vencimento = 0
             },
             formatDate(date) {
                 var d = new Date(date),
@@ -147,12 +169,12 @@
                 event.preventDefault()
                 //let finance = new Finance();
                 //console.log(finance.PV(5, 100, 5))
-                this.disable_taxa_mensal = true
-                this.calcula_pv()
+                this.disable_taxa_mensal = true               
+                this.calcula_pv()             
                 this.mostra_total = true
                 this.total_bruto_reais = this.converter(this.total_bruto)
                 this.total_liquido_reais = this.converter(this.total_liquido)
-            },
+            },            
             onReset(event) {
                 event.preventDefault()
                 this.disable_taxa_mensal = false
