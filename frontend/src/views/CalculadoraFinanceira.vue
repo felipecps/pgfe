@@ -4,6 +4,11 @@
             <b-img :src="require('../assets/banner_calculadora.png')" fluid alt="Responsive image"></b-img>
         </div>
         <div class="mt-3">
+            <h5>
+                Preencha os campos abaixo e calcule o desconto de cada valor futuro.
+            </h5>
+        </div>
+        <div class="mt-3">
             <b-form @submit="onSubmit" @reset="onReset">
                 <b-card bg-variant="light" text-variant="black">
                     <b-form-group id="input-taxa-fg" label="Qual é a taxa mensal?" label-for="input-taxa-fi">
@@ -35,13 +40,15 @@
                         Número de dias até o vencimento: {{ form.nro_de_dias_ate_vencimento }}
                     </p>
 
+
+                    <b-button class="mt-3" type="reset" variant="danger"
+                              :disabled="form.taxa_mensal == ''
+                              && form.valor_do_cheque == ''
+                              && form.para_dia == ''">Limpar</b-button>
+                    <b-button class="mt-3 ml-3" type="submit" variant="primary">Calcular desconto do cheque</b-button>
                 </b-card>
 
-                <b-button class="mt-3 mr-1" type="submit" variant="primary">Adicionar</b-button>
-                <b-button class="mt-3" type="reset" variant="danger"
-                          :disabled="form.taxa_mensal == ''
-                          && form.valor_do_cheque == '' 
-                          && form.para_dia == ''">Limpar</b-button>
+                
             </b-form>
 
             <div class="mt-3">
@@ -120,7 +127,8 @@
                     'Valor Bruto': this.converter(valor_bruto),
                     'Valor Liquido': this.converter(valor_liquido)
                 })
-                
+                this.form.valor_do_cheque = ''
+                this.form.para_dia = ''
             },
             formatDate(date) {
                 var d = new Date(date),
