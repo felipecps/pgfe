@@ -106,7 +106,8 @@
             calcula_pv() {
                 let finance = new Finance();
                 let valor_bruto = this.form.valor_do_cheque.replace(",", ".")
-                let valor_liquido = finance.PV(this.form.taxa_mensal.replace(",", ".") / 30, valor_bruto, this.form.nro_de_dias_ate_vencimento)
+                let taxa = this.form.taxa_mensal.replace(",", ".").replace(" ", "").replace("%", "")
+                let valor_liquido = finance.PV(taxa / 30, valor_bruto, this.form.nro_de_dias_ate_vencimento)
                 console.log(valor_liquido)
                 var data = this.formatDate(this.form.para_dia)
                 this.total_bruto = this.total_bruto + parseFloat(valor_bruto)
@@ -115,7 +116,7 @@
                 this.items_da_tabela.push({
                     Para: data,
                     'Nro de dias': this.form.nro_de_dias_ate_vencimento,
-                    Juros: this.form.taxa_mensal + ' %',
+                    Juros: taxa + '%',
                     'Valor Bruto': this.converter(valor_bruto),
                     'Valor Liquido': this.converter(valor_liquido)
                 })
