@@ -11,12 +11,7 @@
         <div class="mt-3">
             <b-form @submit="onSubmit" @reset="onReset">
                 <b-card bg-variant="light" text-variant="black">
-                    <b-form-group label="Formato do cálculo" v-slot="{ ariaDescribedby }">
-                        <b-form-radio-group v-model="form.radio_selected"
-                                            :options="option_calculo_radio"
-                                            :aria-describedby="ariaDescribedby"
-                                            name="radio-inline"></b-form-radio-group>
-                    </b-form-group>
+                    
                     
                     <b-form-group id="input-taxa-fg" label="Qual é a taxa mensal?" label-for="input-taxa-fi">
                         <b-form-input id="input-taxa-fi"
@@ -65,7 +60,8 @@
                         <td />
                         <td><strong>Total</strong></td>
                         <td><strong>{{ total_bruto_reais }}</strong></td>
-                        <td><strong>{{ total_liquido_reais }}</strong></td>
+                        <td><strong>{{ total_liquido_usual_reais }}</strong></td>
+                        <td><strong>{{ total_liquido_fin_reais }}</strong></td>
                     </template>
                 </b-table>
                 
@@ -89,22 +85,19 @@
                     taxa_mensal: '',
                     valor_do_cheque: '',
                     para_dia: '',
-                    nro_de_dias_ate_vencimento: 0,
-                    radio_selected: 'ari',
+                    nro_de_dias_ate_vencimento: 0                   
                 },
-                
-                option_calculo_radio: [
-                    { text: 'Ari', value: 'ari' },
-                    { text: 'Calculadora', value: 'calculadora' }
-                ],
                 total_bruto_reais: 0,
-                total_liquido_reais: 0,
+                //total_liquido_reais: 0,
+                total_liquido_usual_reais: 0,
+                total_liquido_fin_reais: 0,
                 total_bruto: 0,
-                total_liquido: 0,
+                total_liquido_usual: 0,
+                total_liquido_fin: 0,
                 mostra_total: false,
                 disable_taxa_mensal: false,
                 items_da_tabela: [],
-                fields: ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido'],
+                fields: ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido Usual', 'Valor Líquido Financeiro'],
                 diff: 0,
                 hoje: new Date(),
             };
@@ -127,26 +120,27 @@
                 let finance = new Finance();
                 let valor_bruto = this.form.valor_do_cheque.replace(",", ".")
                 let taxa = this.form.taxa_mensal.replace(",", ".").replace(" ", "").replace("%", "")
-                let valor_liquido = 0
-
-                if (this.form.radio_selected == 'ari') {
-                    valor_liquido = valor_bruto - (((valor_bruto * taxa / 100) / 30) * this.form.nro_de_dias_ate_vencimento)
-                }
-                else {
-                    valor_liquido = finance.PV(taxa / 30, valor_bruto, this.form.nro_de_dias_ate_vencimento)
-                } 
-                
-                console.log(valor_liquido)
+                let valor_liquido_usual = 0
+                let valor_liquido_fin = 0
+                               
+                valor_liquido_usual = valor_bruto - (((valor_bruto * taxa / 100) / 30) * this.form.nro_de_dias_ate_vencimento)
+                valor_liquido_fin = finance.PV(taxa / 30, valor_bruto, this.form.nro_de_dias_ate_vencimento)
+                               
+                console.log(valor_liquido_usual)
+                console.log(valor_liquido_fin)
                 var data = this.formatDate(this.form.para_dia)
                 this.total_bruto = this.total_bruto + parseFloat(valor_bruto)
-                this.total_liquido = this.total_liquido + valor_liquido
+                //this.total_liquido = this.total_liquido + valor_liquido
+                this.total_liquido_usual = this.total_liquido_usual + valor_liquido_usual
+                this.total_liquido_fin = this.total_liquido_fin + valor_liquido_fin
 
                 this.items_da_tabela.push({
                     Para: data,
                     'Nro de dias': this.form.nro_de_dias_ate_vencimento,
                     Juros: taxa + '%',
                     'Valor Bruto': this.converter(valor_bruto),
-                    'Valor Líquido': this.converter(valor_liquido)                    
+                    'Valor Líquido Usual': this.converter(valor_liquido_usual),
+                    'Valor Líquido Financeiro': this.converter(valor_liquido_fin)                    
                 })
                 this.form.valor_do_cheque = ''
                 this.form.para_dia = ''
@@ -173,7 +167,9 @@
                 this.calcula_pv()             
                 this.mostra_total = true
                 this.total_bruto_reais = this.converter(this.total_bruto)
-                this.total_liquido_reais = this.converter(this.total_liquido)
+                //this.total_liquido_reais = this.converter(this.total_liquido)
+                this.total_liquido_usual_reais = this.converter(this.total_liquido_usual)
+                this.total_liquido_fin_reais = this.converter(this.total_liquido_fin)
             },            
             onReset(event) {
                 event.preventDefault()
@@ -184,10 +180,12 @@
                 this.form.para_dia = ''
                 this.form.nro_de_dias_ate_vencimento = 0
                 this.items_da_tabela = []
-                this.total_liquido_reais = 0
+                //this.total_liquido_reais = 0
                 this.total_bruto_reais = 0
                 this.total_bruto = 0
-                this.total_liquido = 0
+                //this.total_liquido = 0
+                this.total_liquido_usual = 0
+                this.total_liquido_fin = 0
             }
         }
     }; 
