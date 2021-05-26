@@ -42,12 +42,14 @@
                         Número de dias até o vencimento: {{ form.nro_de_dias_ate_vencimento }}
                     </p>
 
-
-                    <b-button class="mt-3" type="reset" variant="danger"
-                              :disabled="form.taxa_mensal == ''
+                    <div>
+                        <b-button class="mt-3 mr-3" type="reset" variant="danger"
+                                  :disabled="form.taxa_mensal == ''
                               && form.valor_do_cheque == ''
                               && form.para_dia == ''">Limpar</b-button>
-                    <b-button class="mt-3 ml-3" type="submit" variant="primary">Calcular desconto do cheque</b-button>
+                        <b-button class="mt-3" type="submit" variant="primary">Calcular desconto do cheque</b-button>
+                    </div>
+                    
                 </b-card>
             </b-form>
 
