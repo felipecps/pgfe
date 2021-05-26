@@ -11,8 +11,8 @@
         <div class="mt-3">
             <b-form @submit="onSubmit" @reset="onReset">
                 <b-card bg-variant="light" text-variant="black">
-                    
-                    
+
+
                     <b-form-group id="input-taxa-fg" label="Qual é a taxa mensal?" label-for="input-taxa-fi">
                         <b-form-input id="input-taxa-fi"
                                       autocomplete="off"
@@ -20,7 +20,7 @@
                                       :disabled="disable_taxa_mensal"
                                       placeholder="% a.m."
                                       required></b-form-input>
-                    </b-form-group>                   
+                    </b-form-group>
 
                     <b-form-group id="input-valor-fg" label="Qual o valor do cheque?" label-for="input-valor-fi">
                         <b-form-input id="input-valor-fi"
@@ -49,23 +49,44 @@
                               && form.para_dia == ''">Limpar</b-button>
                     <b-button class="mt-3 ml-3" type="submit" variant="primary">Calcular desconto do cheque</b-button>
                 </b-card>
-
-                
             </b-form>
 
-            <div class="mt-3">
-                <b-table striped hover :items="items_da_tabela" :fields="fields">
-                    <template slot="bottom-row" slot-scope="data" v-if="mostra_total">
-                        <td />
-                        <td />
-                        <td><strong>Total</strong></td>
-                        <td><strong>{{ total_bruto_reais }}</strong></td>
-                        <td><strong>{{ total_liquido_usual_reais }}</strong></td>
-                        <td><strong>{{ total_liquido_fin_reais }}</strong></td>
-                    </template>
-                </b-table>
-                
-            </div>
+            <b-card bg-variant="light" text-variant="black" class="mb-3 mt-3">
+                <b-form-group label="" v-slot="{ ariaDescribedby }">
+                    <b-form-checkbox-group id="checkbox-group-2"
+                                           v-model="fin_selected"
+                                           :aria-describedby="ariaDescribedby"
+                                           name="calc_fin_checkbox"
+                                           :options="options_cb_fin"
+                                           switches>
+                    </b-form-checkbox-group>
+                </b-form-group>
+
+                <div v-if="this.fin_selected == 'exibir_fin'">
+                    <b-table striped hover :items="items_da_tabela" :fields="fields">
+                        <template slot="bottom-row" slot-scope="data" v-if="mostra_total">
+                            <td />
+                            <td />
+                            <td><strong>Total</strong></td>
+                            <td><strong>{{ total_bruto_reais }}</strong></td>
+                            <td><strong>{{ total_liquido_usual_reais }}</strong></td>
+                            <td><strong>{{ total_liquido_fin_reais }}</strong></td>
+                        </template>
+                    </b-table>
+                </div>
+                <div v-else>
+                    <b-table striped hover :items="items_da_tabela" :fields="fields">
+                        <template slot="bottom-row" slot-scope="data" v-if="mostra_total">
+                            <td />
+                            <td />
+                            <td><strong>Total</strong></td>
+                            <td><strong>{{ total_bruto_reais }}</strong></td>
+                            <td><strong>{{ total_liquido_usual_reais }}</strong></td>
+                        </template>
+                    </b-table>
+                </div>
+                                 
+            </b-card>
         </div>
     </div>        
 </template>
@@ -80,13 +101,17 @@
     export default {
         components: { DatePicker },
         data() {
-            return {
+            return {                
                 form: {
                     taxa_mensal: '',
                     valor_do_cheque: '',
                     para_dia: '',
                     nro_de_dias_ate_vencimento: 0                   
                 },
+                fin_selected: ['exibir_fin'],
+                options_cb_fin: [
+                    { text: 'Exibir valor líquido financeiro', value: 'exibir_fin' }                 
+                ],
                 total_bruto_reais: 0,
                 //total_liquido_reais: 0,
                 total_liquido_usual_reais: 0,
@@ -97,12 +122,21 @@
                 mostra_total: false,
                 disable_taxa_mensal: false,
                 items_da_tabela: [],
-                fields: ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido Usual', 'Valor Líquido Financeiro'],
+                //fields: ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido Usual', 'Valor Líquido Financeiro'],
                 diff: 0,
                 hoje: new Date(),
             };
         },
-        
+        computed: {
+            fields() {
+                console.log(this.fin_selected)
+                if (this.fin_selected == 'exibir_fin') {
+                    return ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido Usual', 'Valor Líquido Financeiro']
+                } else {
+                    return ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido Usual']
+                }
+            }           
+        },
         methods: {
             converter(valor) {
                 var numero = parseFloat(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
