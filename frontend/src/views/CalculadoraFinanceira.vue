@@ -31,11 +31,11 @@
                     </b-form-group>
 
                     <b-form-group id="input-data-fg" label="A partir de quando?" label-for="input-data-dp">
-                        <date-picker id="input-data-dp" v-model="hoje" valueType="date"></date-picker>
+                        <date-picker format="DD-MM-YYYY" id="input-data-dp" v-model="hoje" valueType="date"></date-picker>
                     </b-form-group>
 
                     <b-form-group id="input-data-fg" label="Qual é a data do cheque?" label-for="input-data-dp">
-                        <date-picker id="input-data-dp" @change="days_between" v-model="form.para_dia" class="animated-placeholder" valueType="date"></date-picker>
+                        <date-picker format="DD-MM-YYYY" id="input-data-dp" @change="days_between" v-model="form.para_dia" class="animated-placeholder" valueType="date"></date-picker>
                     </b-form-group>
 
                     <p>
