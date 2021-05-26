@@ -63,7 +63,7 @@
                 </b-form-group>
 
                 <div v-if="this.fin_selected == 'exibir_fin'">
-                    <b-table striped hover :items="items_da_tabela" :fields="fields">
+                    <b-table responsive striped hover :items="items_da_tabela" :fields="fields">
                         <template slot="bottom-row" slot-scope="data" v-if="mostra_total">
                             <td />
                             <td />
@@ -75,7 +75,7 @@
                     </b-table>
                 </div>
                 <div v-else>
-                    <b-table striped hover :items="items_da_tabela" :fields="fields">
+                    <b-table responsive striped hover :items="items_da_tabela" :fields="fields">
                         <template slot="bottom-row" slot-scope="data" v-if="mostra_total">
                             <td />
                             <td />
