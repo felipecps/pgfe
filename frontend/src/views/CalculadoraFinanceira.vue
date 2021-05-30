@@ -56,15 +56,17 @@
             <b-card bg-variant="light" text-variant="black" class="mb-3 mt-3">
                 <b-form-group label="" v-slot="{ ariaDescribedby }">
                     <b-form-checkbox-group id="checkbox-group-2"
-                                           v-model="fin_selected"
+                                           v-model="checkboxes_selected"
                                            :aria-describedby="ariaDescribedby"
                                            name="calc_fin_checkbox"
                                            :options="options_cb_fin"
-                                           switches>
+                                           switches
+                                           stacked
+                                            @change="action_on_check_change">
                     </b-form-checkbox-group>
                 </b-form-group>
 
-                <div v-if="this.fin_selected == 'exibir_fin'">
+                <div v-if="this.checkboxes_selected.includes('exibir_financeiro')">
                     <b-table responsive striped hover :items="items_da_tabela" :fields="fields">
                         <template slot="bottom-row" slot-scope="data" v-if="mostra_total">
                             <td />
@@ -110,17 +112,22 @@
                     para_dia: '',
                     nro_de_dias_ate_vencimento: 0                   
                 },
-                fin_selected: ['exibir_fin'],
+                checkboxes_selected: ['exibir_financeiro'],
                 options_cb_fin: [
-                    { text: 'Exibir valor líquido financeiro', value: 'exibir_fin' }                 
+                    { text: 'Exibir valor líquido financeiro', value: 'exibir_financeiro' },
+                    { text: 'D+2', value: 'd2' }
                 ],
                 total_bruto_reais: 0,
                 //total_liquido_reais: 0,
                 total_liquido_usual_reais: 0,
                 total_liquido_fin_reais: 0,
                 total_bruto: 0,
+
                 total_liquido_usual: 0,
                 total_liquido_fin: 0,
+                total_liquido_usual_d2: 0,
+                total_liquido_fin_d2: 0,
+
                 mostra_total: false,
                 disable_taxa_mensal: false,
                 items_da_tabela: [],
@@ -131,15 +138,50 @@
         },
         computed: {
             fields() {
-                console.log(this.fin_selected)
-                if (this.fin_selected == 'exibir_fin') {
+                console.log("this.checkboxes_selected: " + this.checkboxes_selected)
+                if (this.checkboxes_selected.includes('exibir_financeiro') && !this.checkboxes_selected.includes('d2')) {
                     return ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido Usual', 'Valor Líquido Financeiro']
-                } else {
+                } else if (!this.checkboxes_selected.includes('exibir_financeiro') && !this.checkboxes_selected.includes('d2')) {
                     return ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido Usual']
+                } else if (!this.checkboxes_selected.includes('exibir_financeiro') && this.checkboxes_selected.includes('d2')) {
+                    return ['Para', 'Nro de dias D2', 'Juros', 'Valor Bruto', 'Valor Líquido Usual D2']
+                } else if (this.checkboxes_selected.includes('exibir_financeiro') && this.checkboxes_selected.includes('d2')) {
+                    return ['Para', 'Nro de dias D2', 'Juros', 'Valor Bruto', 'Valor Líquido Usual D2', 'Valor Líquido Financeiro D2']
                 }
-            }           
+            },
+            total_liquido_usual_reais_1() {
+                console.log("total_liquido_usual_reais: " + this.total_liquido_usual_reais)
+                const total_temp = 0
+                if (this.checkboxes_selected.includes('d2')) {
+                    for (const x in this.items_da_tabela) {
+                        total_temp = total_temp + x['Valor Líquido Usual D2']
+                    }
+                } else {
+                    for (const x in this.items_da_tabela) {
+                        total_temp = total_temp + x['Valor Líquido Usual']
+                    }
+                }
+                return total_temp
+            },
+            total_liquido_fin_reais_1() {
+                console.log("total_liquido_fin_reais: " + this.total_liquido_fin_reais)
+                const total_temp = 0
+                if (this.checkboxes_selected.includes('d2')) {
+                    for (const x in this.items_da_tabela) {
+                        total_temp = total_temp + x['Valor Líquido Financeiro D2']
+                    }
+                } else {
+                    for (const x in this.items_da_tabela) {
+                        total_temp = total_temp + x['Valor Líquido Financeiro']
+                    }
+                }
+                return total_temp
+            }
         },
         methods: {
+            action_on_check_change() {
+                console.log(this.checkboxes_selected)
+            },
             converter(valor) {
                 var numero = parseFloat(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 return numero
@@ -162,25 +204,37 @@
                 let taxa = this.form.taxa_mensal.replace(",", ".").replace(" ", "").replace("%", "")
                 let valor_liquido_usual = 0
                 let valor_liquido_fin = 0
-                               
+                var data = this.formatDate(this.form.para_dia)
+
+                let nro_de_dias_d2 = this.form.nro_de_dias_ate_vencimento + 3
+                let valor_liquido_usual_d2 = 0
+                let valor_liquido_fin_d2 = 0
+                
                 valor_liquido_usual = valor_bruto - (((valor_bruto * taxa / 100) / 30) * this.form.nro_de_dias_ate_vencimento)
                 valor_liquido_fin = finance.PV(taxa / 30, valor_bruto, this.form.nro_de_dias_ate_vencimento)
-                               
-                console.log(valor_liquido_usual)
-                console.log(valor_liquido_fin)
-                var data = this.formatDate(this.form.para_dia)
+                valor_liquido_usual_d2 = valor_bruto - (((valor_bruto * taxa / 100) / 30) * nro_de_dias_d2)
+                valor_liquido_fin_d2 = finance.PV(taxa / 30, valor_bruto, nro_de_dias_d2)
+                
                 this.total_bruto = this.total_bruto + parseFloat(valor_bruto)
                 //this.total_liquido = this.total_liquido + valor_liquido
                 this.total_liquido_usual = this.total_liquido_usual + valor_liquido_usual
                 this.total_liquido_fin = this.total_liquido_fin + valor_liquido_fin
+                this.total_liquido_usual_d2 = this.total_liquido_usual_d2 + valor_liquido_usual_d2
+                this.total_liquido_fin_d2 = this.total_liquido_fin_d2 + valor_liquido_fin_d2
+
 
                 this.items_da_tabela.push({
                     Para: data,
                     'Nro de dias': this.form.nro_de_dias_ate_vencimento,
+                    'Nro de dias D2': nro_de_dias_d2,
+
                     Juros: taxa + '%',
                     'Valor Bruto': this.converter(valor_bruto),
+
                     'Valor Líquido Usual': this.converter(valor_liquido_usual),
-                    'Valor Líquido Financeiro': this.converter(valor_liquido_fin)                    
+                    'Valor Líquido Financeiro': this.converter(valor_liquido_fin),
+                    'Valor Líquido Usual D2': this.converter(valor_liquido_usual_d2),
+                    'Valor Líquido Financeiro D2': this.converter(valor_liquido_fin_d2)
                 })
                 this.form.valor_do_cheque = ''
                 this.form.para_dia = ''
@@ -208,8 +262,11 @@
                 this.mostra_total = true
                 this.total_bruto_reais = this.converter(this.total_bruto)
                 //this.total_liquido_reais = this.converter(this.total_liquido)
-                this.total_liquido_usual_reais = this.converter(this.total_liquido_usual)
-                this.total_liquido_fin_reais = this.converter(this.total_liquido_fin)
+
+                //this.total_liquido_usual_reais = this.converter(this.total_liquido_usual)
+                //this.total_liquido_fin_reais = this.converter(this.total_liquido_fin)
+                //this.total_liquido_usual_reais_d2 = this.converter(this.total_liquido_usual_d2)
+                //this.total_liquido_fin_reais_d2 = this.converter(this.total_liquido_fin_d2)
             },            
             onReset(event) {
                 event.preventDefault()
@@ -224,8 +281,11 @@
                 this.total_bruto_reais = 0
                 this.total_bruto = 0
                 //this.total_liquido = 0
+
                 this.total_liquido_usual = 0
                 this.total_liquido_fin = 0
+                this.total_liquido_usual_d2 = 0
+                this.total_liquido_fin_d2 = 0
             }
         }
     }; 
