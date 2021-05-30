@@ -145,12 +145,16 @@
                 return numero
             },
             days_between() {
-                console.log("days_between")
-                const diffTime = Math.abs(this.form.para_dia - this.hoje);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                console.log(diffTime + " milliseconds");
-                console.log(diffDays + " days");
-                this.form.nro_de_dias_ate_vencimento = diffDays
+                console.log("this.form.para_dia: " + this.form.para_dia)
+                if (this.form.para_dia == null) {
+                    this.form.nro_de_dias_ate_vencimento = 0
+                } else {
+                    const diffTime = Math.abs(this.form.para_dia - this.hoje);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    console.log(diffTime + " milliseconds");
+                    console.log(diffDays + " days");
+                    this.form.nro_de_dias_ate_vencimento = diffDays
+                }
             },
             calcula_pv() {
                 let finance = new Finance();
