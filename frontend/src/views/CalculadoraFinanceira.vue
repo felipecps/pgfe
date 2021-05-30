@@ -67,7 +67,7 @@
                 </b-form-group>
 
                 <div v-if="this.checkboxes_selected.includes('exibir_financeiro')">
-                    <b-table responsive striped hover :items="items_da_tabela" :fields="fields">
+                    <b-table responsive striped hover fixed :items="items_da_tabela" :fields="fields">
                         <template slot="bottom-row" slot-scope="data" v-if="mostra_total">
                             <td />
                             <td />
@@ -79,7 +79,7 @@
                     </b-table>
                 </div>
                 <div v-else>
-                    <b-table responsive striped hover :items="items_da_tabela" :fields="fields">
+                    <b-table responsive striped hover fixed :items="items_da_tabela" :fields="fields">
                         <template slot="bottom-row" slot-scope="data" v-if="mostra_total">
                             <td />
                             <td />
@@ -119,8 +119,8 @@
                 ],
                 total_bruto_reais: 0,
                 //total_liquido_reais: 0,
-                total_liquido_usual_reais: 0,
-                total_liquido_fin_reais: 0,
+                //total_liquido_usual_reais: 0,
+                //total_liquido_fin_reais: 0,
                 total_bruto: 0,
 
                 total_liquido_usual: 0,
@@ -149,33 +149,39 @@
                     return ['Para', 'Nro de dias D2', 'Juros', 'Valor Bruto', 'Valor Líquido Usual D2', 'Valor Líquido Financeiro D2']
                 }
             },
-            total_liquido_usual_reais_1() {
-                console.log("total_liquido_usual_reais: " + this.total_liquido_usual_reais)
-                const total_temp = 0
-                if (this.checkboxes_selected.includes('d2')) {
-                    for (const x in this.items_da_tabela) {
-                        total_temp = total_temp + x['Valor Líquido Usual D2']
+            total_liquido_usual_reais() {
+                let total_temp = 0
+                console.log(this.items_da_tabela)
+
+                for (var i = 0; i < this.items_da_tabela.length; i++) {
+                    console.log(this.items_da_tabela[i]);
+                    if (this.checkboxes_selected.includes('d2')) {
+                        total_temp = total_temp + this.items_da_tabela[i]['VLiqUsual_somenteNroD2']
+                        console.log("total_liquido_usual_reais D2: " + total_temp);
+                    } else {
+                        console.log(this.items_da_tabela[i]);
+                        total_temp = total_temp + this.items_da_tabela[i]['VLiqUsual_somenteNro']
+                        console.log("total_liquido_usual_reais: " + total_temp);
                     }
-                } else {
-                    for (const x in this.items_da_tabela) {
-                        total_temp = total_temp + x['Valor Líquido Usual']
-                    }
-                }
-                return total_temp
+                }                           
+                return this.converter(total_temp)
             },
-            total_liquido_fin_reais_1() {
-                console.log("total_liquido_fin_reais: " + this.total_liquido_fin_reais)
-                const total_temp = 0
-                if (this.checkboxes_selected.includes('d2')) {
-                    for (const x in this.items_da_tabela) {
-                        total_temp = total_temp + x['Valor Líquido Financeiro D2']
-                    }
-                } else {
-                    for (const x in this.items_da_tabela) {
-                        total_temp = total_temp + x['Valor Líquido Financeiro']
+            total_liquido_fin_reais() {
+                let total_temp = 0
+                console.log(this.items_da_tabela)
+
+                for (var i = 0; i < this.items_da_tabela.length; i++) {
+                    console.log(this.items_da_tabela[i]);
+                    if (this.checkboxes_selected.includes('d2')) {
+                        total_temp = total_temp + this.items_da_tabela[i]['VLiqFinanceiro_somenteNroD2']
+                        console.log("total_liquido_fin_reais D2: " + total_temp);
+                    } else {
+                        console.log(this.items_da_tabela[i]);
+                        total_temp = total_temp + this.items_da_tabela[i]['VLiqFinanceiro_somenteNro']
+                        console.log("total_liquido_fin_reais: " + total_temp);
                     }
                 }
-                return total_temp
+                return this.converter(total_temp)
             }
         },
         methods: {
@@ -234,7 +240,13 @@
                     'Valor Líquido Usual': this.converter(valor_liquido_usual),
                     'Valor Líquido Financeiro': this.converter(valor_liquido_fin),
                     'Valor Líquido Usual D2': this.converter(valor_liquido_usual_d2),
-                    'Valor Líquido Financeiro D2': this.converter(valor_liquido_fin_d2)
+                    'Valor Líquido Financeiro D2': this.converter(valor_liquido_fin_d2),
+
+                    'VLiqUsual_somenteNro': valor_liquido_usual,
+                    'VLiqFinanceiro_somenteNro': valor_liquido_fin,
+                    'VLiqUsual_somenteNroD2': valor_liquido_usual_d2,
+                    'VLiqFinanceiro_somenteNroD2': valor_liquido_fin_d2,
+
                 })
                 this.form.valor_do_cheque = ''
                 this.form.para_dia = ''
