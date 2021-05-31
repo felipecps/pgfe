@@ -61,8 +61,7 @@
                                            name="calc_fin_checkbox"
                                            :options="options_cb_fin"
                                            switches
-                                           stacked
-                                            @change="action_on_check_change">
+                                           @change="action_on_check_change">
                     </b-form-checkbox-group>
                 </b-form-group>
 
