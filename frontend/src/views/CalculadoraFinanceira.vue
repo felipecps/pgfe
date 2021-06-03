@@ -68,11 +68,11 @@
 
                 <div v-if="this.checkboxes.selected.includes('exibir_financeiro')">
                     <b-table responsive striped hover fixed :items="items_da_tabela" :fields="fields">
-                        <template slot="bottom-row" slot-scope="data" v-if="mostra_total">
+                        <template slot="bottom-row" slot-scope="data" v-if="mostra_valores_totais">
                             <td />
                             <td />
                             <td><strong>Total</strong></td>
-                            <td><strong>{{ total_bruto_reais }}</strong></td>
+                            <td><strong>{{ valores_totais_somados.total_bruto_reais }}</strong></td>
                             <td><strong>{{ total_liquido_usual_reais }}</strong></td>
                             <td><strong>{{ total_liquido_fin_reais }}</strong></td>
                         </template>
@@ -80,11 +80,11 @@
                 </div>
                 <div v-else>
                     <b-table responsive striped hover fixed :items="items_da_tabela" :fields="fields">
-                        <template slot="bottom-row" slot-scope="data" v-if="mostra_total">
+                        <template slot="bottom-row" slot-scope="data" v-if="mostra_valores_totais">
                             <td />
                             <td />
                             <td><strong>Total</strong></td>
-                            <td><strong>{{ total_bruto_reais }}</strong></td>
+                            <td><strong>{{ valores_totais_somados.total_bruto_reais }}</strong></td>
                             <td><strong>{{ total_liquido_usual_reais }}</strong></td>
                         </template>
                     </b-table>
@@ -106,7 +106,6 @@
         components: { DatePicker },
         data() {
             return {
-                items_de_entrada_do_formulario: [],
                 form: {
                     taxa_mensal: '',
                     valor_do_cheque: '',
@@ -125,20 +124,21 @@
                     ],
                 },
 
-                total_bruto_reais: 0,
-                total_bruto: 0,
+                valores_totais_somados: {
+                    total_bruto_sem_formatacao_de_reais: 0,
+                    total_bruto_reais: 0,
 
-                total_liquido_usual: 0,
-                total_liquido_usual_d2: 0,
+                    total_liquido_calculo_usual: 0,
+                    total_liquido_calculo_financeiro: 0,
 
-                total_liquido_fin: 0,
-                total_liquido_fin_d2: 0,
+                    total_liquido_calculo_usual_d2: 0,
+                    total_liquido_calculo_financeiro_d2: 0,
+                },
 
-                mostra_total: false,
+                mostra_valores_totais: false,
                 disable_taxa_mensal: false,
                 items_da_tabela: [],
-                
-                diff: 0,
+                items_de_entrada_do_formulario: [],                
                 hoje: new Date(),
             };
         },
@@ -179,12 +179,12 @@
                 valor_liquido_usual_d2 = valor_bruto - (((valor_bruto * taxa / 100) / 30) * nro_de_dias_d2)
                 valor_liquido_fin_d2 = finance.PV(taxa / 30, valor_bruto, nro_de_dias_d2)
                 
-                this.total_bruto = this.total_bruto + parseFloat(valor_bruto)
+                this.valores_totais_somados.total_bruto_sem_formatacao_de_reais = this.valores_totais_somados.total_bruto_sem_formatacao_de_reais + parseFloat(valor_bruto)
                 //this.total_liquido = this.total_liquido + valor_liquido
-                this.total_liquido_usual = this.total_liquido_usual + valor_liquido_usual
-                this.total_liquido_fin = this.total_liquido_fin + valor_liquido_fin
-                this.total_liquido_usual_d2 = this.total_liquido_usual_d2 + valor_liquido_usual_d2
-                this.total_liquido_fin_d2 = this.total_liquido_fin_d2 + valor_liquido_fin_d2
+                this.valores_totais_somados.total_liquido_calculo_usual = this.valores_totais_somados.total_liquido_calculo_usual + valor_liquido_usual
+                this.valores_totais_somados.total_liquido_calculo_financeiro = this.valores_totais_somados.total_liquido_calculo_financeiro + valor_liquido_fin
+                this.valores_totais_somados.total_liquido_calculo_usual_d2 = this.valores_totais_somados.total_liquido_calculo_usual_d2 + valor_liquido_usual_d2
+                this.valores_totais_somados.total_liquido_calculo_financeiro_d2 = this.valores_totais_somados.total_liquido_calculo_financeiro_d2 + valor_liquido_fin_d2
 
 
                 this.items_da_tabela.push({
@@ -241,33 +241,27 @@
                 this.salvar_dados_de_entrada_do_formulario()
                 this.disable_taxa_mensal = true               
                 this.calcula_pv()             
-                this.mostra_total = true
-                this.total_bruto_reais = this.converter(this.total_bruto)
-                //this.total_liquido_reais = this.converter(this.total_liquido)
-
-                //this.total_liquido_usual_reais = this.converter(this.total_liquido_usual)
-                //this.total_liquido_fin_reais = this.converter(this.total_liquido_fin)
-                //this.total_liquido_usual_reais_d2 = this.converter(this.total_liquido_usual_d2)
-                //this.total_liquido_fin_reais_d2 = this.converter(this.total_liquido_fin_d2)
+                this.mostra_valores_totais = true
+                this.valores_totais_somados.total_bruto_reais = this.converter(this.valores_totais_somados.total_bruto_sem_formatacao_de_reais)
             },            
             onReset(event) {
                 event.preventDefault()
                 this.disable_taxa_mensal = false
-                this.mostra_total = false
+                this.mostra_valores_totais = false
                 this.form.taxa_mensal = ''
                 this.form.valor_do_cheque = ''
                 this.form.para.dia = ''
                 this.form.para.nro_de_dias_ate_vencimento = 0
                 this.items_da_tabela = []
                 
-                this.total_bruto_reais = 0
-                this.total_bruto = 0
+                this.valores_totais_somados.total_bruto_reais = 0
+                this.valores_totais_somados.total_bruto = 0
                 
 
-                this.total_liquido_usual = 0
-                this.total_liquido_fin = 0
-                this.total_liquido_usual_d2 = 0
-                this.total_liquido_fin_d2 = 0
+                this.valores_totais_somados.total_liquido_calculo_usual = 0
+                this.valores_totais_somados.total_liquido_calculo_financeiro = 0
+                this.valores_totais_somados.total_liquido_calculo_usual_d2 = 0
+                this.valores_totais_somados.total_liquido_calculo_financeiro_d2 = 0
             }
         },
         computed: {
