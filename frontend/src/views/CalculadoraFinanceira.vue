@@ -104,7 +104,8 @@
     export default {
         components: { DatePicker },
         data() {
-            return {                
+            return {
+                items_de_entrada_do_formulario: [],
                 form: {
                     taxa_mensal: '',
                     valor_do_cheque: '',
@@ -134,54 +135,6 @@
                 diff: 0,
                 hoje: new Date(),
             };
-        },
-        computed: {
-            fields() {
-                console.log("this.checkboxes_selected: " + this.checkboxes_selected)
-                if (this.checkboxes_selected.includes('exibir_financeiro') && !this.checkboxes_selected.includes('d2')) {
-                    return ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido Usual', 'Valor Líquido Financeiro']
-                } else if (!this.checkboxes_selected.includes('exibir_financeiro') && !this.checkboxes_selected.includes('d2')) {
-                    return ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido Usual']
-                } else if (!this.checkboxes_selected.includes('exibir_financeiro') && this.checkboxes_selected.includes('d2')) {
-                    return ['Para', 'Nro de dias D2', 'Juros', 'Valor Bruto', 'Valor Líquido Usual D2']
-                } else if (this.checkboxes_selected.includes('exibir_financeiro') && this.checkboxes_selected.includes('d2')) {
-                    return ['Para', 'Nro de dias D2', 'Juros', 'Valor Bruto', 'Valor Líquido Usual D2', 'Valor Líquido Financeiro D2']
-                }
-            },
-            total_liquido_usual_reais() {
-                let total_temp = 0
-                console.log(this.items_da_tabela)
-
-                for (var i = 0; i < this.items_da_tabela.length; i++) {
-                    console.log(this.items_da_tabela[i]);
-                    if (this.checkboxes_selected.includes('d2')) {
-                        total_temp = total_temp + this.items_da_tabela[i]['VLiqUsual_somenteNroD2']
-                        console.log("total_liquido_usual_reais D2: " + total_temp);
-                    } else {
-                        console.log(this.items_da_tabela[i]);
-                        total_temp = total_temp + this.items_da_tabela[i]['VLiqUsual_somenteNro']
-                        console.log("total_liquido_usual_reais: " + total_temp);
-                    }
-                }                           
-                return this.converter(total_temp)
-            },
-            total_liquido_fin_reais() {
-                let total_temp = 0
-                console.log(this.items_da_tabela)
-
-                for (var i = 0; i < this.items_da_tabela.length; i++) {
-                    console.log(this.items_da_tabela[i]);
-                    if (this.checkboxes_selected.includes('d2')) {
-                        total_temp = total_temp + this.items_da_tabela[i]['VLiqFinanceiro_somenteNroD2']
-                        console.log("total_liquido_fin_reais D2: " + total_temp);
-                    } else {
-                        console.log(this.items_da_tabela[i]);
-                        total_temp = total_temp + this.items_da_tabela[i]['VLiqFinanceiro_somenteNro']
-                        console.log("total_liquido_fin_reais: " + total_temp);
-                    }
-                }
-                return this.converter(total_temp)
-            }
         },
         methods: {
             action_on_check_change() {
@@ -264,10 +217,22 @@
 
                 return [day, month, year].join('-');
             },
+            salvar_dados_de_entrada_do_formulario() {
+                let dados_de_entrada = {
+                    Juros: this.form.taxa_mensal,
+                    Valor: this.form.valor_do_cheque,
+                    'A partir': this.hoje,
+                    Para: this.form.para_dia,
+                    'Nro de dias': this.form.nro_de_dias_ate_vencimento
+                }
+                this.items_de_entrada_do_formulario.push(dados_de_entrada)
+                console.log("Dados de Entrada: " + dados_de_entrada)
+            },
             onSubmit(event) {
                 event.preventDefault()
                 //let finance = new Finance();
                 //console.log(finance.PV(5, 100, 5))
+                this.salvar_dados_de_entrada_do_formulario()
                 this.disable_taxa_mensal = true               
                 this.calcula_pv()             
                 this.mostra_total = true
@@ -298,7 +263,55 @@
                 this.total_liquido_usual_d2 = 0
                 this.total_liquido_fin_d2 = 0
             }
-        }
+        },
+        computed: {
+            fields() {
+                console.log("this.checkboxes_selected: " + this.checkboxes_selected)
+                if (this.checkboxes_selected.includes('exibir_financeiro') && !this.checkboxes_selected.includes('d2')) {
+                    return ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido Usual', 'Valor Líquido Financeiro']
+                } else if (!this.checkboxes_selected.includes('exibir_financeiro') && !this.checkboxes_selected.includes('d2')) {
+                    return ['Para', 'Nro de dias', 'Juros', 'Valor Bruto', 'Valor Líquido Usual']
+                } else if (!this.checkboxes_selected.includes('exibir_financeiro') && this.checkboxes_selected.includes('d2')) {
+                    return ['Para', 'Nro de dias D2', 'Juros', 'Valor Bruto', 'Valor Líquido Usual D2']
+                } else if (this.checkboxes_selected.includes('exibir_financeiro') && this.checkboxes_selected.includes('d2')) {
+                    return ['Para', 'Nro de dias D2', 'Juros', 'Valor Bruto', 'Valor Líquido Usual D2', 'Valor Líquido Financeiro D2']
+                }
+            },
+            total_liquido_usual_reais() {
+                let total_temp = 0
+                console.log(this.items_da_tabela)
+
+                for (var i = 0; i < this.items_da_tabela.length; i++) {
+                    console.log(this.items_da_tabela[i]);
+                    if (this.checkboxes_selected.includes('d2')) {
+                        total_temp = total_temp + this.items_da_tabela[i]['VLiqUsual_somenteNroD2']
+                        console.log("total_liquido_usual_reais D2: " + total_temp);
+                    } else {
+                        console.log(this.items_da_tabela[i]);
+                        total_temp = total_temp + this.items_da_tabela[i]['VLiqUsual_somenteNro']
+                        console.log("total_liquido_usual_reais: " + total_temp);
+                    }
+                }
+                return this.converter(total_temp)
+            },
+            total_liquido_fin_reais() {
+                let total_temp = 0
+                console.log(this.items_da_tabela)
+
+                for (var i = 0; i < this.items_da_tabela.length; i++) {
+                    console.log(this.items_da_tabela[i]);
+                    if (this.checkboxes_selected.includes('d2')) {
+                        total_temp = total_temp + this.items_da_tabela[i]['VLiqFinanceiro_somenteNroD2']
+                        console.log("total_liquido_fin_reais D2: " + total_temp);
+                    } else {
+                        console.log(this.items_da_tabela[i]);
+                        total_temp = total_temp + this.items_da_tabela[i]['VLiqFinanceiro_somenteNro']
+                        console.log("total_liquido_fin_reais: " + total_temp);
+                    }
+                }
+                return this.converter(total_temp)
+            }
+        },
     }; 
 </script>
 
