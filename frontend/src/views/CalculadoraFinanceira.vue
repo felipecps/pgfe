@@ -314,7 +314,7 @@
         },
         watch: {
             items_de_entrada_do_formulario() {
-                console.log("watch: items_de_entrada_do_formulario")
+                console.log("watch: items_de_entrada_do_formulario: " + this.items_de_entrada_do_formulario.length)
             }
         }
     }; 
