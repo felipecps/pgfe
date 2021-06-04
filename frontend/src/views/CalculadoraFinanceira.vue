@@ -151,9 +151,17 @@
                 return numero
             },
             days_between() {
+               
+
                 if (this.form.para.dia == null) {
                     this.form.para.nro_de_dias_ate_vencimento = 0
                 } else {
+
+                    var dias_da_semana = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+                    var dia_da_semana = dias_da_semana[this.form.para.dia.getDay()];
+                    console.log(dia_da_semana)
+
+
                     const diffTime = Math.abs(this.form.para.dia - this.hoje);
                     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                     this.form.para.nro_de_dias_ate_vencimento = diffDays
