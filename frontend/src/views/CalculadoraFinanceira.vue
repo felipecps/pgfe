@@ -171,18 +171,15 @@
                 return this.dias_da_semana[dia.getDay()];
             },
             days_between() {
-
-                
-
                 if (this.form.para.dia == null) {
                     this.form.para.nro_de_dias_ate_vencimento = 0
                 } else {
                     this.form.para.nro_de_dias_ate_vencimento = this.calcula_diff_dias(this.form.para.dia, this.hoje)
                     this.form.para.dia_da_semana = this.retorna_dia_da_semana(this.form.para.dia)
 
-                    console.log("Dia de vencimento: " + this.form.para.dia)
+                    /*console.log("Dia de vencimento: " + this.form.para.dia)
                     console.log("Nro de dias até o vencimento: " + this.form.para.nro_de_dias_ate_vencimento)
-                    console.log("Dia da semana até vencimento: " + this.form.para.dia_da_semana)
+                    console.log("Dia da semana até vencimento: " + this.form.para.dia_da_semana)*/
 
                     if ((this.form.para.dia_da_semana == this.dias_da_semana[0]) || (this.form.para.dia_da_semana == this.dias_da_semana[6])) {
                         if (this.form.para.dia_da_semana == this.dias_da_semana[0]) {
@@ -192,9 +189,9 @@
                         }
                         this.form.para.nova_data_d2_feriados.novo_nro_de_dias_ate_vencimento = this.calcula_diff_dias(this.form.para.nova_data_d2_feriados.novo_dia, this.hoje)
                         this.form.para.nova_data_d2_feriados.novo_dia_da_semana = this.retorna_dia_da_semana(this.form.para.nova_data_d2_feriados.novo_dia)
-                        console.log("Novo dia de vencimento: " + this.form.para.nova_data_d2_feriados.novo_dia)
+                        /*console.log("Novo dia de vencimento: " + this.form.para.nova_data_d2_feriados.novo_dia)
                         console.log("Novo nro de dias até o vencimento: " + this.form.para.nova_data_d2_feriados.novo_nro_de_dias_ate_vencimento)
-                        console.log("Novo dia da semana até vencimento: " + this.form.para.nova_data_d2_feriados.novo_dia_da_semana)
+                        console.log("Novo dia da semana até vencimento: " + this.form.para.nova_data_d2_feriados.novo_dia_da_semana)*/
                     }
                 }
             },
