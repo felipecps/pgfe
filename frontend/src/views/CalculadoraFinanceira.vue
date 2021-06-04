@@ -37,11 +37,17 @@
                     <b-form-group id="input-data-fg" label="Qual é a data do cheque?" label-for="input-data-dp">
                         <date-picker format="DD-MM-YYYY" id="input-data-dp" @change="days_between" v-model="form.para.dia" class="animated-placeholder" valueType="date"></date-picker>
                     </b-form-group>
-
-                    <p>
-                        Número de dias até o vencimento: {{ form.para.nro_de_dias_ate_vencimento }}. 
-                        Vencimento em um(a) {{ form.para.dia_da_semana }}
-                    </p>
+                    
+                    <div>
+                        <p>
+                            Número de dias até o vencimento: {{ form.para.nro_de_dias_ate_vencimento }}.
+                            Vencimento em um(a) {{ form.para.dia_da_semana }}
+                        </p>
+                        <p v-if="mostra_novo_dia_d2">
+                            <strong>{{ this.form.para.nova_data_d2_feriados.novo_dia_da_semana }}</strong>
+                        </p>
+                    </div>
+                    
 
                     <div>
                         <b-button class="mt-3 mr-3" type="reset" variant="danger"
@@ -140,6 +146,7 @@
                     total_liquido_calculo_financeiro_d2: 0,
                 },
 
+                mostra_novo_dia_d2: false,
                 mostra_valores_totais: false,
                 disable_taxa_mensal: false,
                 items_da_tabela: [],
@@ -171,6 +178,7 @@
                 return this.dias_da_semana[dia.getDay()];
             },
             days_between() {
+                this.mostra_novo_dia_d2 = false
                 if (this.form.para.dia == null) {
                     this.form.para.nro_de_dias_ate_vencimento = 0
                 } else {
@@ -192,6 +200,7 @@
                         /*console.log("Novo dia de vencimento: " + this.form.para.nova_data_d2_feriados.novo_dia)
                         console.log("Novo nro de dias até o vencimento: " + this.form.para.nova_data_d2_feriados.novo_nro_de_dias_ate_vencimento)
                         console.log("Novo dia da semana até vencimento: " + this.form.para.nova_data_d2_feriados.novo_dia_da_semana)*/
+                        this.mostra_novo_dia_d2 = true
                     }
                 }
             },
@@ -204,7 +213,10 @@
                 let valor_liquido_fin = 0
                 var data = this.formatDate(this.form.para.dia)
 
-                let nro_de_dias_d2 = this.form.para.nro_de_dias_ate_vencimento + 3
+                //let nro_de_dias_d2 = this.form.para.nro_de_dias_ate_vencimento + 3
+                let nro_de_dias_d2 = this.form.para.nova_data_d2_feriados.novo_nro_de_dias_ate_vencimento + 3
+                console.log("calcula_pv | nro_de_dias_d2: " + nro_de_dias_d2)
+                //console.log("calcula_pv | this.form.para.nova_data_d2_feriados.novo_nro_de_dias_ate_vencimento: " + this.form.para.nova_data_d2_feriados.novo_nro_de_dias_ate_vencimento)
                 let valor_liquido_usual_d2 = 0
                 let valor_liquido_fin_d2 = 0
                 
