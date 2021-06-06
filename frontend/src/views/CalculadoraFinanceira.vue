@@ -35,13 +35,13 @@
                     </b-form-group>
 
                     <b-form-group id="input-data-fg" label="Qual é a data do cheque?" label-for="input-data-dp">
-                        <date-picker format="DD-MM-YYYY" id="input-data-dp" @change="days_between" v-model="form.para.dia" class="animated-placeholder" valueType="date"></date-picker>
+                        <date-picker format="DD-MM-YYYY" id="input-data-dp" @change="verifica_datas" v-model="form.para.dia" class="animated-placeholder" valueType="date"></date-picker>
                     </b-form-group>
                     
-                    <div>
-                        <p>
-                            Número de dias até o vencimento: {{ form.para.nro_de_dias_ate_vencimento }}.
-                            Vencimento em um(a) {{ form.para.dia_da_semana }}
+                    <div v-if="mostra_informacoes_das_datas">
+                        <p class="quebra_linha">
+                            Número de dias até o vencimento: <strong>{{ form.para.nro_de_dias_ate_vencimento }}</strong>
+                            {{nova_linha}}Vencimento em um(a): <strong>{{ form.para.dia_da_semana }}</strong>
                         </p>
                         <p v-if="mostra_novo_dia_d2">
                             <strong>{{ this.form.para.nova_data_d2_feriados.novo_dia_da_semana }}</strong>
@@ -146,7 +146,8 @@
                     total_liquido_calculo_usual_d2: 0,
                     total_liquido_calculo_financeiro_d2: 0,
                 },
-
+                nova_linha: '\n',
+                mostra_informacoes_das_datas: false,
                 mostra_novo_dia_d2: false,
                 mostra_valores_totais: false,
                 disable_taxa_mensal: false,
@@ -177,6 +178,16 @@
             },
             retorna_dia_da_semana(dia) {
                 return this.dias_da_semana[dia.getDay()];
+            },
+            verifica_datas() {
+                if (this.form.para.dia == null) {
+                    this.mostra_informacoes_das_datas = false
+                    this.form.para.nro_de_dias_ate_vencimento = 0
+                } else {
+                    this.form.para.nro_de_dias_ate_vencimento = this.calcula_diff_dias(this.form.para.dia, this.hoje)
+                    this.form.para.dia_da_semana = this.retorna_dia_da_semana(this.form.para.dia)
+                    this.mostra_informacoes_das_datas = true
+                }
             },
             days_between() {
                 this.mostra_novo_dia_d2 = false
@@ -353,4 +364,9 @@
     }; 
 </script>
 
+<style>
+    p.quebra_linha {
+        white-space: pre-line;
+    }
+</style >
 
