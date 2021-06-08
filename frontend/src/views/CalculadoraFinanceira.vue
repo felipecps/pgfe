@@ -39,20 +39,23 @@
                     </b-form-group>
 
                     <div v-if="mostra_informacoes_das_datas">
-                        <h6>Data selecionada:</h6>
+                        <h6>Dados considerados para cálculo financeiro:</h6>
                         <p class="quebra_linha">
-                            Número de dias até o vencimento: <strong>{{ form.para.nro_de_dias_ate_vencimento }}</strong>
+                            Data selecionada: <strong>{{ form.para.data_pretty_print }}</strong>
+                            {{nova_linha}}Número de dias até o vencimento: <strong>{{ form.para.nro_de_dias_ate_vencimento }}</strong>
                             {{nova_linha}}Vencimento em um(a): <strong>{{ form.para.dia_da_semana }}</strong>
                         </p>
                     </div>
                     <div v-if="mostra_novo_dia_d2">
                         <hr />
+                        <h6>Dados considerados para cálculo usual:</h6>
                         <p class="quebra_linha">
-                            <h6>Data considerada para cálculo usual:</h6>
-                            <strong>{{ this.form.para.nova_data_d2_feriados.novo_dia_da_semana }}</strong>
+                            Data selecionada: <strong>{{ form.para.nova_data_d2_feriados.nova_data_pretty_print }}</strong>
+                            {{nova_linha}}Número de dias até o vencimento: <strong>{{ form.para.nova_data_d2_feriados.novo_nro_de_dias_ate_vencimento }}</strong>
+                            {{nova_linha}}Vencimento em um(a): <strong>{{ form.para.nova_data_d2_feriados.novo_dia_da_semana }}</strong>
                         </p>
                     </div>
-
+                    
                     <div>
                         <b-button class="mt-3 mr-3" type="reset" variant="danger"
                                   :disabled="form.taxa_mensal == ''
@@ -124,10 +127,12 @@
                         dia: '',
                         nro_de_dias_ate_vencimento: 0,
                         dia_da_semana: '',
+                        data_pretty_print: '',
                         nova_data_d2_feriados: {
                             novo_dia: '',
                             novo_nro_de_dias_ate_vencimento: 0,
                             novo_dia_da_semana: '',
+                            nova_data_pretty_print: ''
                         }
                     },
                 },
@@ -150,7 +155,6 @@
                     total_liquido_calculo_usual_d2: 0,
                     total_liquido_calculo_financeiro_d2: 0,
                 },
-                i: 0,
                 nova_linha: '\n',
                 mostra_informacoes_das_datas: false,
                 mostra_novo_dia_d2: false,
@@ -190,28 +194,49 @@
                 let dia_da_semana = this.retorna_dia_da_semana(novo_dia_final)
 
                 while (dia_da_semana == this.dias_da_semana[0] || dia_da_semana == this.dias_da_semana[6]) {
-                    console.log("while: " + this.i++)
                     let d1 = this.adiciona_dias_na_data(dia_do_vencimento, 1)
                     novo_dia_final = this.encontra_nova_data_para_d2_feriados(d1)
                     dia_da_semana = this.retorna_dia_da_semana(novo_dia_final)
                 }
                 return novo_dia_final
             },
+            limpa_campos_d2() {
+                this.form.para.nova_data_d2_feriados.novo_dia = ''
+                this.form.para.nova_data_d2_feriados.novo_nro_de_dias_ate_vencimento = ''
+                this.form.para.nova_data_d2_feriados.novo_dia_da_semana = ''
+            },
+            limpa_campos_fin() {
+                this.form.para.dia = ''
+                this.form.para.nro_de_dias_ate_vencimento = ''
+                this.form.para.dia_da_semana = ''
+            },
             verifica_datas() {
                 if (this.form.para.dia == null) {
                     this.mostra_informacoes_das_datas = false
                     this.form.para.nro_de_dias_ate_vencimento = 0
+                    this.limpa_campos_d2()
+                    this.limpa_campos_fin()
                 } else {
                     this.form.para.nro_de_dias_ate_vencimento = this.calcula_diff_dias(this.form.para.dia, this.hoje)
                     this.form.para.dia_da_semana = this.retorna_dia_da_semana(this.form.para.dia)
                     this.mostra_informacoes_das_datas = true
+
+                    let d = new Date()
+                    d = this.form.para.dia
+                    this.form.para.data_pretty_print = d.toLocaleDateString()
                 }                
 
                 if (this.form.para.dia_da_semana == this.dias_da_semana[0] || this.form.para.dia_da_semana == this.dias_da_semana[6]) {
-                    this.form.para.nova_data_d2_feriados.novo_dia = this.encontra_nova_data_para_d2_feriados(this.form.para.dia)
-                    this.form.para.nova_data_d2_feriados.novo_dia_da_semana = this.retorna_dia_da_semana(this.form.para.nova_data_d2_feriados.novo_dia)
-                    this.form.para.nova_data_d2_feriados.novo_nro_de_dias_ate_vencimento = this.calcula_diff_dias(this.form.para.nova_data_d2_feriados.novo_dia, this.hoje)
+                    let d = new Date()
+                    d = this.encontra_nova_data_para_d2_feriados(this.form.para.dia)
+                    this.form.para.nova_data_d2_feriados.novo_dia = d
+                    this.form.para.nova_data_d2_feriados.nova_data_pretty_print = d.toLocaleDateString()
+                    this.form.para.nova_data_d2_feriados.novo_dia_da_semana = this.retorna_dia_da_semana(d)
+                    this.form.para.nova_data_d2_feriados.novo_nro_de_dias_ate_vencimento = this.calcula_diff_dias(d, this.hoje)
                     this.mostra_novo_dia_d2 = true
+                } else {
+                    this.mostra_novo_dia_d2 = false
+                    this.limpa_campos_d2()
                 }
             },
             days_between2() {
