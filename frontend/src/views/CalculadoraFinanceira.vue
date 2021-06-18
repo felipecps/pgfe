@@ -49,24 +49,13 @@
                         </b-alert>
                     </div>
 
-                    <div v-if="mostra_informacoes_de_datas">
+                    <div v-if="mostra_informacoes_de_datas"> 
                         <p class="quebra_linha">
-                            Informações da data inicial:
-                            {{nova_linha}}Data inicial selecionada: <strong>{{ form.data_inicial }}</strong>
-                        </p>
+                            Data final considerada para cálculo financeiro: <strong>{{ form.para_data.data_pretty_print }}</strong>
+                         </p>
                         <hr />
                         <p class="quebra_linha">
-                            Informações da conta financeira padrão:
-                            {{nova_linha}}Data final selecionada: <strong>{{ form.para_data.dia }}</strong>
-                            {{nova_linha}}Data final selecionada em formato bonito: <strong>{{ form.para_data.data_pretty_print }}</strong>
-                            {{nova_linha}}Número de dias até o vencimento: <strong>{{ form.para_data.nro_de_dias_ate_vencimento }}</strong>
-                        </p>
-                        <hr />
-                        <p class="quebra_linha">
-                            Informações da conta D+2:
-                            {{nova_linha}}Data final selecionada: <strong>{{ form.nova_data_d2_feriados.dia_d2 }}</strong>
-                            {{nova_linha}}Data final selecionada em formato bonito: <strong>{{ form.nova_data_d2_feriados.data_pretty_print_d2 }}</strong>
-                            {{nova_linha}}Número de dias até o vencimento: <strong>{{ form.nova_data_d2_feriados.nro_de_dias_ate_vencimento_d2  }}</strong>
+                            Data final considerada para cálculo D+2: <strong>{{ form.nova_data_d2_feriados.data_pretty_print_d2 }}</strong>
                         </p>
                     </div>
 
@@ -184,8 +173,7 @@
                 mostra_valores_totais: false,
                 disable_taxa_mensal: false,
                 items_da_tabela: [],
-                items_de_entrada_do_formulario: [],
-                dias_da_semana: ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'],
+                items_de_entrada_do_formulario: [],               
 
                 mostra_informacoes_de_datas: false,
                 dismissSecs: 5,
@@ -194,9 +182,12 @@
         },
         methods: {
             verifica_datas() {
-                if (this.form.data_inicial != '' && this.form.para_data.dia != '') {
+                this.mostra_informacoes_de_datas = false
+                                
+                if (this.form.data_inicial != null && this.form.para_data.dia != null) {
                     if (this.form.para_data.dia <= this.form.data_inicial) {
                         this.form.para_data.dia = ''
+                        
                         this.showAlert()
                     } else {                        
                         this.form.para_data.nro_de_dias_ate_vencimento = this.retorna_nro_de_dias_entre_datas(this.form.data_inicial, this.form.para_data.dia)
@@ -212,7 +203,8 @@
                         this.form.nova_data_d2_feriados.dia_d2 = d 
                         this.form.nova_data_d2_feriados.nro_de_dias_ate_vencimento_d2 = this.retorna_nro_de_dias_entre_datas(this.form.data_inicial, this.form.nova_data_d2_feriados.dia_d2)
                         this.form.nova_data_d2_feriados.data_pretty_print_d2 = this.form.nova_data_d2_feriados.dia_d2.toLocaleDateString()
-                        }
+                        this.mostra_informacoes_de_datas = true
+                    }
                 }                
             },
             adiciona_dias_na_data(data_inicial, nro_de_dias) {
@@ -226,10 +218,7 @@
             retorna_nro_de_dias_entre_datas(inicio, fim) {
                 const diffTime = Math.abs(fim - inicio);
                 return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            },
-            retorna_dia_da_semana(dia) {
-                return this.dias_da_semana[dia.getDay()];
-            },
+            },            
             countDownChanged(dismissCountDown) {
                 this.dismissCountDown = dismissCountDown
             },
