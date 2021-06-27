@@ -8,6 +8,7 @@ import CalculaCorretagem from '../views/CalculaCorretagem.vue';
 import CalculadoraFinanceira from '../views/CalculadoraFinanceira.vue';
 import PythonExercicios from '../views/Python.vue';
 import OCR from '../views/OCR.vue';
+import ExtratoTD from '../views/TDExtrato/CalculaExtrato.vue'
 import ISS from '../views/ISS.vue';
 import estruturaSequencial from '../components/EstruturaSequencial.vue';
 import Ex1 from '../components/exerciciosEstruturaSequencial/ex1.vue';
@@ -40,7 +41,12 @@ const routes = [
     path: '/',
     name: 'PaginaInicial',
         component: PaginaInicial,
-  },
+    },
+    {
+        path: '/extratotd',
+        name: 'ExtratoTD',
+        component: ExtratoTD,
+    },
   {
     path: '/emailalert',
     name: 'EmailAlert',
